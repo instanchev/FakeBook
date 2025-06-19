@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Любов от Твоето Име</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fff0f5;
+      color: #333;
+    }
+    header {
+      background: #ffccdd;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      color: #87003e;
+    }
+    nav {
+      text-align: center;
+      margin: 20px 0;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #87003e;
+      font-weight: bold;
+    }
+    .section {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    .section h2 {
+      text-align: center;
+      color: #cc3366;
+    }
+    .category {
+      margin: 20px 0;
+    }
+    .category label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    select, textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #cc3366;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #a02d55;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f8c6d0;
+      color: #87003e;
+    }
+    .paypal-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+    /* Икони и стилове за секцията "Как работи услугата" */
+    #howitworks ol {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    #howitworks li {
+      position: relative;
+      background: #ffe6f0;
+      margin: 15px 0;
+      padding: 20px 20px 20px 60px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: #87003e;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    #howitworks li.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #howitworks li::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    #howitworks li:nth-child(1)::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/cc3366/selection.png');
+    }
+    #howitworks li:nth-child(2)::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/cc3366/edit--v1.png');
+    }
+    #howitworks li:nth-child(3)::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/cc3366/send.png');
+    }
+    #howitworks li:nth-child(4)::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/cc3366/paypal.png');
+    }
+    #howitworks li:nth-child(5)::before {
+      background-image: url('https://img.icons8.com/ios-filled/50/cc3366/mailbox.png');
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Любов от Твоето Име
+  </header>
+  <nav>
+    <a href="#form">Изпрати Послание</a>
+    <a href="#howitworks">Как работи?</a>
+    <a href="#prices">Ценоразпис</a>
+    <a href="#contact">Контакт</a>
+  </nav>
+
+  <div class="section" id="form">
+    <h2>Създай лично любовно послание</h2>
+    <form action="mailto:instanchev97@gmail.com" method="POST" enctype="text/plain">
+      <div class="category">
+        <label for="type">Вид на посланието:</label>
+        <select id="type" name="Вид на посланието">
+          <option value="romantic">Романтично послание</option>
+          <option value="support">Подкрепа към любим човек</option>
+          <option value="apology">Извинение</option>
+          <option value="missing">Липсваш ми</option>
+          <option value="celebration">Специален повод (рожден ден, годишнина)</option>
+        </select>
+      </div>
+
+      <div class="category">
+        <label for="name">Име на любимия човек:</label>
+        <input type="text" id="name" name="Име на любимия човек" placeholder="например: Виктория" />
+      </div>
+
+      <div class="category">
+        <label for="details">Допълнителна информация (нещо специално за вас двамата):</label>
+        <textarea id="details" name="Допълнителна информация" rows="5" placeholder="Напиши какво прави този човек специален за теб..."></textarea>
+      </div>
+
+      <button type="submit">Изпрати заявка</button>
+    </form>
+
+    <div class="paypal-button">
+      <h3>Плати лесно с PayPal</h3>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+        <input type="hidden" name="business" value="instanchev97@gmail.com" />
+        <input type="hidden" name="currency_code" value="BGN" />
+        <input type="submit" value="Плати с PayPal" style="background:#ffc439;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;" />
+      </form>
+    </div>
+  </div>
+
+  <div class="section" id="howitworks">
+    <h2>Как работи услугата?</h2>
+    <ol>
+      <li>Избираш вид на посланието от формата.</li>
+      <li>Въвеждаш име и споделяш специална информация.</li>
+      <li>Изпращаш заявка чрез формуляра.</li>
+      <li>Избираш начин на плащане (напр. PayPal).</li>
+      <li>Получаваш персонализираното послание на имейл или социални мрежи.</li>
+    </ol>
+  </div>
+
+  <div class="section" id="prices">
+    <h2>Ценоразпис</h2>
+    <table>
+      <tr><th>Вид на посланието</th><th>Цена</th></tr>
+      <tr><td>Кратко любовно съобщение</td><td>5.00 лв</td></tr>
+      <tr><td>Персонализиран стих (до 150 думи)</td><td>10.00 лв</td></tr>
+      <tr><td>Видео с любовен текст + глас</td><td>15.00 лв</td></tr>
+      <tr><td>Подкрепа/мотивация за любим човек</td><td>7.00 лв</td></tr>
+      <tr><td>Извинение с емоционално послание</td><td>8.00 лв</td></tr>
+      <tr><td>„Липсваш ми“ или носталгично</td><td>6.00 лв</td></tr>
+      <tr><td>Годишнина / специален повод</td><td>12.00 лв</td></tr>
+    </table>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>Свържи се с нас</h2>
+    <p>Пиши ни във Facebook или Instagram: <strong>@lyubovotteb</strong><br>
+       Имейл: <strong>instanchev97@gmail.com</strong></p>
+  </div>
+
+  <script>
+    // Анимация при скрол за секция "Как работи услугата"
+    function showVisibleSteps() {
+      const items = document.querySelectorAll('#howitworks li');
+      const triggerBottom = window.innerHeight * 0.9;
+
+      items.forEach(item => {
+        const itemTop = item.getBoundingClientRect().top;
+        if (itemTop < triggerBottom) {
+          item.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', showVisibleSteps);
+    window.addEventListener('load', showVisibleSteps);
+  </script>
+</body>
+</html>
+добавен  index.html".
