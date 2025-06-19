@@ -1,173 +1,235 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ние сме тук за да си помагаме</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Nunito', sans-serif;
-    }
-    body {
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-      color: #333;
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;} to {opacity: 1;}
-    }
-    header {
-      text-align: center;
-      padding: 3rem 1rem;
-      background-color: rgba(255,255,255,0.8);
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    header h1 {
-      font-size: 2.5rem;
-      color: #2d2d2d;
-    }
-    header p {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #444;
-    }
-    .section {
-      padding: 2rem 1rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .section h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #444;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    .card a {
-      text-decoration: none;
-      color: #0077cc;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: #222;
-    }
-    .chat-box {
-      margin-top: 2rem;
-      background-color: #f7f7f7;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-    .chat-box textarea {
-      width: 100%;
-      height: 100px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      padding: 0.5rem;
-    }
-    .chat-box button {
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: #66a6ff;
-      border: none;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .quote {
-      background: rgba(255,255,255,0.8);
-      padding: 1rem;
-      border-radius: 10px;
-      margin: 2rem auto;
-      max-width: 600px;
-      font-style: italic;
-      text-align: center;
-    }
-    audio {
-      display: block;
-      margin: 1rem auto;
-    }
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 10px;
-      margin: 1rem 0;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FakeBook - Социална мрежа</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0;
+    background: #e9ebee;
+  }
+  header {
+    background: #4267B2;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+    flex-grow: 1;
+  }
+  nav button {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-left: 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  nav button:hover {
+    text-decoration: underline;
+  }
+  #content {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 6px;
+    padding: 20px;
+  }
+  #profile {
+    display: none;
+  }
+  #newsfeed {
+    display: none;
+  }
+  #friends {
+    display: none;
+  }
+  #chat {
+    display: none;
+  }
+  .post {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #f6f7f8;
+  }
+  .post-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  #newPostForm textarea {
+    width: 100%;
+    height: 80px;
+    resize: none;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  #newPostForm button {
+    margin-top: 8px;
+    padding: 8px 15px;
+    background: #4267B2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #newPostForm button:hover {
+    background: #365899;
+  }
+  #friendsList {
+    list-style: none;
+    padding: 0;
+  }
+  #friendsList li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f0f2f5;
+    border-radius: 6px;
+  }
+  #chatMessages {
+    border: 1px solid #ccc;
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f6f7f8;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  #chatInput {
+    width: calc(100% - 90px);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  #chatSendBtn {
+    padding: 8px 15px;
+    background: #4267B2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #chatSendBtn:hover {
+    background: #365899;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Ние сме тук за да си помагаме 💙</h1>
-    <p>За всички, които търсят сила, подкрепа и спокойствие.</p>
-  </header>
 
-  <audio controls autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_03c0c9a191.mp3" type="audio/mpeg">
-    Твоят браузър не поддържа аудио.
-  </audio>
+<header>
+  <h1>FakeBook</h1>
+  <nav>
+    <button onclick="showSection('profile')">Профил</button>
+    <button onclick="showSection('newsfeed')">Новини</button>
+    <button onclick="showSection('friends')">Приятели</button>
+    <button onclick="showSection('chat')">Чат</button>
+  </nav>
+</header>
 
-  <div class="section">
-    <h2>🧠 Подробен тест за психично здраве</h2>
-    <iframe src="https://www.idrlabs.com/bg/depression/test.php"></iframe>
-  </div>
+<div id="content">
+  <section id="profile">
+    <h2>Моят Профил</h2>
+    <p><strong>Име:</strong> Искрен</p>
+    <p><strong>Имейл:</strong> iskren@example.com</p>
+    <p><strong>За мен:</strong> Обичам да създавам и споделям.</p>
+  </section>
 
-  <div class="section">
-    <h2>🎮 Игри срещу стрес</h2>
-    <div class="cards">
-      <div class="card"><a href="https://www.colorfy.net/" target="_blank">🎨 Оцвети и релаксирай</a></div>
-      <div class="card"><a href="https://www.nytimes.com/crosswords" target="_blank">🧩 Кръстословици</a></div>
-      <div class="card"><a href="https://play.prodigygame.com/" target="_blank">🧠 Логически игри</a></div>
-      <div class="card"><a href="https://sketch.io/sketchpad/en/" target="_blank">✏️ Рисуване онлайн</a></div>
-      <div class="card"><a href="https://musiclab.chromeexperiments.com/Song-Maker/" target="_blank">🎵 Направи музика</a></div>
-      <div class="card"><a href="https://papergames.io/en/" target="_blank">👥 Игри за двама</a></div>
-      <div class="card"><a href="https://www.coolmathgames.com/" target="_blank">🧊 Стрес релийф мини игри</a></div>
-      <div class="card"><a href="https://neal.fun/" target="_blank">🌍 Neal.fun – успокояващи забавления</a></div>
-    </div>
-  </div>
+  <section id="newsfeed">
+    <h2>Новини</h2>
+    <form id="newPostForm" onsubmit="addPost(event)">
+      <textarea id="postContent" placeholder="Какво мислиш?"></textarea>
+      <button type="submit">Публикувай</button>
+    </form>
+    <div id="postsContainer"></div>
+  </section>
 
-  <div class="section">
-    <h2>📚 Полезна информация</h2>
-    <div class="card">
-      <p>🌿 Дишай дълбоко: техника 4-7-8.</p>
-      <p>🧍 Заземи се: изброй 5 неща, които виждаш, 4, които докосваш...</p>
-      <p>💧 Пий вода, почини си, излез на разходка.</p>
-      <p>📖 Всеки ден по 1 малка стъпка – това води до голяма промяна.</p>
-    </div>
-  </div>
+  <section id="friends">
+    <h2>Приятели</h2>
+    <ul id="friendsList">
+      <li>Виктория</li>
+      <li>Ава</li>
+      <li>Бейли</li>
+    </ul>
+  </section>
 
-  <div class="quote">
-    „И това ще мине.“ – Българска мъдрост
-  </div>
+  <section id="chat">
+    <h2>Чат</h2>
+    <div id="chatMessages"></div>
+    <input type="text" id="chatInput" placeholder="Напиши съобщение..." />
+    <button id="chatSendBtn" onclick="sendChatMessage()">Изпрати</button>
+  </section>
+</div>
 
-  <div class="section">
-    <h2>💬 Остави коментар или мисъл</h2>
-    <div class="chat-box">
-      <textarea placeholder="Напиши нещо…"></textarea>
-      <button>Изпрати</button>
-    </div>
-  </div>
+<script>
+  // Показване/скриване на секции
+  function showSection(section) {
+    ['profile', 'newsfeed', 'friends', 'chat'].forEach(id => {
+      document.getElementById(id).style.display = (id === section) ? 'block' : 'none';
+    });
+  }
+  // Първоначално показваме новини
+  showSection('newsfeed');
 
-  <footer>
-    &copy; 2025 Ние сме тук за да си помагаме. Създадено с любов от Искрен. ❤️
-  </footer>
+  // Публикуване на пост
+  const posts = [];
+  function addPost(e) {
+    e.preventDefault();
+    const content = document.getElementById('postContent').value.trim();
+    if (!content) return alert('Моля, напиши нещо за поста.');
+    posts.unshift({ user: 'Искрен', text: content, date: new Date() });
+    document.getElementById('postContent').value = '';
+    renderPosts();
+  }
+
+  function renderPosts() {
+    const container = document.getElementById('postsContainer');
+    container.innerHTML = '';
+    posts.forEach(post => {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.innerHTML = `
+        <div class="post-header">${post.user} - ${post.date.toLocaleString()}</div>
+        <div class="post-text">${post.text}</div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // Чат функционалност (локален)
+  const chatMessages = [];
+  function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    chatMessages.push({ user: 'Искрен', text, date: new Date() });
+    input.value = '';
+    renderChatMessages();
+
+    // Автоматичен отговор (пример)
+    setTimeout(() => {
+      chatMessages.push({ user: 'Виктория', text: 'Хей, как си?', date: new Date() });
+      renderChatMessages();
+    }, 1000);
+  }
+
+  function renderChatMessages() {
+    const container = document.getElementById('chatMessages');
+    container.innerHTML = '';
+    chatMessages.forEach(msg => {
+      const div = document.createElement('div');
+      div.textContent = `${msg.user}: ${msg.text}`;
+      container.appendChild(div);
+    });
+    container.scrollTop = container.scrollHeight;
+  }
+</script>
+
 </body>
 </html>
