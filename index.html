@@ -1,579 +1,173 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Батко ти е с теб - За малката ми сестричка и всички, които имат нужда</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-    color: #222;
-    margin: 0; padding: 0;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-  }
-  header {
-    background: #004080;
-    color: white;
-    padding: 1.5em 1em;
-    text-align: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  }
-  header h1 {
-    margin: 0 0 0.2em 0;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-  }
-  header p {
-    margin: 0;
-    font-style: italic;
-    font-size: 1.1em;
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    background: #0563afcc;
-    padding: 0.7em 0;
-    gap: 1em;
-    box-shadow: inset 0 -2px 4px #023a5a;
-  }
-  nav button {
-    background: white;
-    border: none;
-    padding: 0.7em 1.2em;
-    border-radius: 30px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  nav button.active,
-  nav button:hover {
-    background: #022f57;
-    color: white;
-  }
-  main {
-    flex-grow: 1;
-    max-width: 900px;
-    margin: 2em auto 3em auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    padding: 2em 2.5em;
-  }
-  h2 {
-    color: #004080;
-    margin-top: 0;
-    font-weight: 900;
-  }
-  section {
-    display: none;
-  }
-  section.active {
-    display: block;
-  }
-  label {
-    font-weight: 600;
-  }
-  select {
-    margin-top: 0.3em;
-    margin-bottom: 1.2em;
-    padding: 0.4em;
-    font-size: 1em;
-    border-radius: 6px;
-    border: 1.8px solid #ccc;
-    width: 100%;
-    max-width: 400px;
-  }
-  button.submit-btn {
-    background: #0073e6;
-    color: white;
-    border: none;
-    padding: 0.8em 1.5em;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 1.1em;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,115,230,0.5);
-    transition: background 0.3s ease;
-  }
-  button.submit-btn:hover {
-    background: #005bb5;
-  }
-  #testResult {
-    margin-top: 1.5em;
-    font-weight: 800;
-    font-size: 1.2em;
-    color: #d9534f;
-  }
-  ul {
-    line-height: 1.6em;
-  }
-  .game-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 0.7em 1.3em;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 1.1em;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(40,167,69,0.6);
-    transition: background 0.3s ease;
-  }
-  .game-btn:hover {
-    background: #1e7e34;
-  }
-  #gameArea {
-    margin-top: 1.5em;
-    font-size: 1.1em;
-    font-weight: 600;
-    text-align: center;
-    color: #004080;
-    user-select: none;
-  }
-  footer {
-    text-align: center;
-    padding: 1em 0;
-    font-size: 0.9em;
-    color: #555;
-    border-top: 1px solid #ccc;
-    background: #f0f4f8;
-  }
-  .heart {
-    color: #d9534f;
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>Батко ти е с теб</h1>
-  <p>За малката ми сестричка и всички, които търсят сила и подкрепа ❤️</p>
-</header>
-
-<nav>
-  <button id="nav-test" class="active">Тест за депресия</button>
-  <button id="nav-games">Игри за стрес</button>
-  <button id="nav-info">Съвети и информация</button>
-</nav>
-
-<main>
-  <!-- Тест за депресия -->
-  <section id="section-test" class="active">
-    <h2>Тест за депресия</h2>
-    <p>Погрижи се за себе си, отговори честно на въпросите по-долу и разбери как се чувстваш.</p>
-    <form id="depressionTestForm">
-      <label for="q1">1. Чувствал ли си се тъжен, празен или безнадежден през последните 2 седмици?</label>
-      <select id="q1" name="q1" required>
-        <option value="">Избери</option>
-        <option value="0">Не</option>
-        <option value="1">Понякога</option>
-        <option value="2">Често</option>
-        <option value="3">Постоянно</option>
-      </select>
-
-      <label for="q2">2. Загуба на интерес или удоволствие от дейности, които обичайно харесваш?</label>
-      <select id="q2" name="q2" required>
-        <option value="">Избери</option>
-        <option value="0">Не</option>
-        <option value="1">Понякога</option>
-        <option value="2">Често</option>
-        <option value="3">Постоянно</option>
-      </select>
-
-      <label for="q3">3. Имаш ли проблеми със съня (спиш твърде много или твърде малко)?</label>
-      <select id="q3" name="q3" required>
-        <option value="">Избери</option>
-        <option value="0">Не</option>
-        <option value="1">Понякога</option>
-        <option value="2">Често</option>
-        <option value="3">Постоянно</option>
-      </select>
-
-      <label for="q4">4. Чувствал ли си се уморен или с намалена енергия?</label>
-      <select id="q4" name="q4" required>
-        <option value="">Избери</option>
-        <option value="0">Не</option>
-        <option value="1">Понякога</option>
-        <option value="2">Често</option>
-        <option value="3">Постоянно</option>
-      </select>
-
-      <label for="q5">5. Имаш ли трудности с концентрацията или вземането на решения?</label>
-      <select id="q5" name="q5" required>
-        <option value="">Избери</option>
-        <option value="0">Не</option>
-        <option value="1">Понякога</option>
-        <option value="2">Често</option>
-        <option value="3">Постоянно</option>
-      </select>
-
-      <br />
-      <button type="submit" class="submit-btn">Провери резултат</button>
-    </form>
-    <div id="testResult"></div>
-  </section>
-
-  <!-- Игри за стрес -->
-  <section id="section-games">
-    <h2>Игри за справяне със стреса</h2>
-    <p>Когато стресът ти тежи, опитай тези забавни упражнения, които ти помагат да се отпуснеш и да се чувстваш по-добре.</p>
-    <button class="game-btn" id="game-breathing">Дишай с мен (4-7-8 техника)</button>
-    <div id="gameArea"></div>
-  </section>
-
-  <!-- Съвети и информация -->
-  <section id="section-info">
-    <h2>Съвети и информация</h2>
-    <p>Знам, че животът понякога може да е труден. Тук съм, за да ти напомня, че не си сам(а) и има начини да се справиш.</p>
-    <h3>Как да се справиш със стреса?</h3>
-    <ul>
-      <li>Почивай редовно и спи достатъчно.</li>
-      <li>Прави упражнения за дишане и медитация.</li>
-      <li>Говори с близък приятел или член на семейството.</li>
-      <li>Раздели задачите на по-малки и се фокусирай на едно нещо наведнъж.</li>
-      <li>Пий вода и се раздвижвай поне веднъж на час.</li>
-    </ul>
-    <h3>Какво е депресия?</h3>
-    <p>Депресията е състояние, което засяга настроението, мислите и енергията ти. Не си виновен(на), че я изпитваш, и има начини да се подобриш с помощта на специалисти.</p>
-    <h3>Полезни ресурси:</h3>
-    <ul>
-      <li><a href="https://www.who.int/news-room/fact-sheets/detail/depression" target="_blank" rel="noopener">Световната здравна организация - Депресия</a></li>
-      <li><a href="https://mentalhealth.bg/" target="_blank" rel="noopener">MentalHealth.bg - Български ресурс</a></li>
-      <li><a href="https://www.psychologytoday.com/us/basics/depression" target="_blank" rel="noopener">Psychology Today - Депресия</a></li>
-    </ul>
-  </section>
-</main>
-
-<footer>
-  <p>© 2025 Батко ти е с теб | Направен с <span class="heart">❤</span> за малката ми сестричка</p>
-</footer>
-
-<script>
-  // Навигация между секциите
-  const navTest = document.getElementById('nav-test');
-  const navGames = document.getElementById('nav-games');
-  const navInfo = document.getElementById('nav-info');
-
-  const sectionTest = document.getElementById('section-test');
-  const sectionGames = document.getElementById('section-games');
-  const sectionInfo = document.getElementById('section-info');
-
-  function setActiveSection(sectionBtn, section) {
-    // махаме всички active
-    [navTest, navGames, navInfo].forEach(btn => btn.classList.remove('active'));
-    [sectionTest, sectionGames, sectionInfo].forEach(sec => sec.classList.remove('active'));
-    // добавяме active на избраните
-    sectionBtn.classList.add('active');
-    section.classList.add('active');
-  }
-
-  navTest.onclick = () => setActiveSection(navTest, sectionTest);
-  navGames.onclick = () => setActiveSection(navGames, sectionGames);
-  navInfo.onclick = () => setActiveSection(navInfo, sectionInfo);
-
-  // Тест за депресия
-  const form = document.getElementById('depressionTestForm');
-  const resultDiv = document.getElementById('testResult');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    let totalScore = 0;
-    for(let i=1; i<=5; i++) {
-      const val = parseInt(form['q'+i].value, 10);
-      totalScore += val;
-    }
-
-    let message = '';
-    if(totalScore <= 4) {
-      message = 'Твоето настроение изглежда добро. Продължавай да се грижиш за себе си!';
-    } else if(totalScore <= 8) {
-      message = 'Появяват се признаци на стрес или лека депресия. Опитай да отделиш време за почивка и подкрепа.';
-    } else if(totalScore <= 12) {
-      message = 'Средно ниво на депресия. Може би е добре да поговориш с близък или специалист.';
-    } else {
-      message = 'Високо ниво на депресия. Моля те, потърси помощ от специалист възможно най-скоро.';
-    }
-
-    resultDiv.textContent = message;
-  });
-
-  // Игра - дишай с мен (4-7-8 техника)
-  const gameBtn = document.getElementById('game-breathing');
-  const gameArea = document.getElementById('gameArea');
-
-  gameBtn.onclick = () => {
-    gameArea.innerHTML = `
-      <p>Вдишай през носа за <strong>4 секунди</strong></p>
-      <p>Задръж дъха за <strong>7 секунди</strong></p>
-      <p>Издишай бавно през устата за <strong>8 секунди</strong></p>
-      <p>Повтори 4 пъти.</p>
-      <button id="startBreath" class="game-btn">Старт</button>
-      <div id="breathTimer" style="margin-top: 1em; font-size: 1.2em; color: #004080; font-weight: 700;"></div>
-    `;
-
-    const startBtn = document.getElementById('startBreath');
-    const breathTimer = document.getElementById('breathTimer');
-
-    let phase = 0;
-    let count = 0;
-    let interval;
-
-    const phases = [
-      {text: 'Вдишай', duration: 4000},
-      {text: 'Задръж', duration: 7000},
-      {text: 'Издишай', duration: 8000},
-    ];
-
-    startBtn.onclick = () => {
-      if(interval) return; // няма да стартира два пъти
-      count = 0;
-      phase = 0;
-      breathTimer.textContent = '';
-      runPhase();
-      interval = setInterval(() => {
-        runPhase();
-      }, 1000);
-    };
-
-    function runPhase() {
-      if(count === 0) {
-        breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000} сек`;
-        count++;
-      } else if (count < phases[phase].duration/1000) {
-        breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000 - count} сек`;
-        count++;
-      } else {
-        phase++;
-        count = 0;
-        if(phase === phases.length) {
-          breathTimer.textContent = `Кръг приключи! Повтори още 3 пъти.`;
-          clearInterval(interval);
-          interval = null;
-        } else {
-          breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000} сек`;
-          count++;
-        }
-      }
-    }
-  };
-
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="bg">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Батко ти е с теб — Игри за справяне със стреса</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ние сме тук за да си помагаме</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
-      color: #034078;
-      margin: 0; padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      color: #333;
+      animation: bgchange 20s infinite alternate;
+    }
+    @keyframes bgchange {
+      0% { background: linear-gradient(135deg, #e3f2fd, #fce4ec); }
+      50% { background: linear-gradient(135deg, #c8e6c9, #fff9c4); }
+      100% { background: linear-gradient(135deg, #d1c4e9, #b3e5fc); }
     }
     header {
-      background: #022f40;
-      color: #fff;
-      padding: 20px 10px;
-      width: 100%;
+      background-color: #4a148c;
+      color: white;
+      padding: 20px;
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
-    main {
-      max-width: 700px;
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
       padding: 20px;
-      flex-grow: 1;
-      width: 90%;
-    }
-    section {
-      background: #e3f2fdcc;
+      background: white;
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    h2 {
-      color: #034078;
-      margin-bottom: 15px;
+    h1, h2 {
+      color: #4a148c;
+    }
+    .test-section, .info-section, .game-section, .comments-section, .chat-section {
+      margin-bottom: 40px;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 10px;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .game {
+      background: #f1f8e9;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    textarea, input[type=text] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
     button {
-      background: #0288d1;
+      background: #4a148c;
       color: white;
-      font-size: 1.1rem;
+      padding: 10px 20px;
       border: none;
-      padding: 12px 22px;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 15px;
+      margin-top: 10px;
     }
-    button:hover {
-      background: #026aa7;
+    .chat-box {
+      height: 200px;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 10px;
+      background: #f9f9f9;
     }
-    #breathTimer, #gameStatus, #meditationMsg {
-      margin-top: 20px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #014a75;
-      min-height: 60px;
-      text-align: center;
-    }
-    #relaxCircle {
-      width: 150px;
-      height: 150px;
-      margin: 30px auto;
-      border-radius: 50%;
-      background: #0288d1cc;
-      animation: none;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-      50% {
-        transform: scale(1.3);
-        opacity: 1;
-      }
+    .chat-message {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Ние сме тук за да си помагаме</h1>
+    <p>За всеки, който търси сила, подкрепа и светлина в тъмнината 💜</p>
+  </header>
 
-<header>
-  Батко ти е с теб — Игри за справяне със стреса
-</header>
+  <div class="container">
 
-<main>
+    <section class="test-section">
+      <h2>🧠 Тест за ментално здраве</h2>
+      <p>Разбери как се чувстваш. Този тест ще ти помогне да разпознаеш признаци на депресия, тревожност или стрес:</p>
+      <iframe src="https://psytoolkit.org/survey-library/depression-phq9.html"></iframe>
+    </section>
 
-  <!-- Игра 1: Дишай с мен (4-7-8 техника) -->
-  <section id="breathingGame">
-    <h2>Игра: Дишай с мен (4-7-8 техника)</h2>
-    <p>Вдишай през носа за <strong>4 секунди</strong>, задръж дъха за <strong>7 секунди</strong>, издишай бавно през устата за <strong>8 секунди</strong>. Повтори 4 пъти.</p>
-    <button id="startBreath">Старт</button>
-    <div id="breathTimer"></div>
-  </section>
+    <section class="info-section">
+      <h2>🌱 Съвети за справяне със стреса и депресията</h2>
+      <ul>
+        <li>Дишай дълбоко с техниката 4-7-8</li>
+        <li>Пиши как се чувстваш</li>
+        <li>Излез на разходка, дори и за 5 минути</li>
+        <li>Говори с приятел или с нас в чата</li>
+        <li>Наспи се и пий вода 💧</li>
+        <li>Слушай музика, която ти носи покой</li>
+      </ul>
+    </section>
 
-  <!-- Игра 2: Визуално упражнение за релакс -->
-  <section id="visualGame">
-    <h2>Игра: Визуално упражнение за релакс</h2>
-    <p>Гледай кръга как пулсира и се опитай да синхронизираш дишането си с него.</p>
-    <button id="startPulse">Старт на упражнението</button>
-    <div id="relaxCircle"></div>
-    <button id="stopPulse" style="display:none; background:#c62828;">Стоп</button>
-  </section>
+    <section class="game-section">
+      <h2>🎮 Игри против стрес и тревожност</h2>
+      <div class="game-grid">
+        <div class="game">
+          <h3>Дишай с мен</h3>
+          <iframe src="https://neal.fun/breathing/" title="Breathing Game"></iframe>
+        </div>
+        <div class="game">
+          <h3>Пукай балоните</h3>
+          <iframe src="https://html5.gamemonetize.com/oyxvfu61mhzy7epigb9ux5z1m8qh6vhc/" title="Bubble Pop"></iframe>
+        </div>
+        <div class="game">
+          <h3>ASMR Пясък</h3>
+          <iframe src="https://thisissand.com/" title="This is Sand"></iframe>
+        </div>
+        <div class="game">
+          <h3>Оцветяване</h3>
+          <iframe src="https://www.coloringpages.org/" title="Coloring Pages"></iframe>
+        </div>
+        <div class="game">
+          <h3>Зен Градина</h3>
+          <iframe src="https://www.montereybayaquarium.org/animals/live-cams" title="Zen Cam"></iframe>
+        </div>
+      </div>
+    </section>
 
-  <!-- Игра 3: Кратка медитация -->
-  <section id="meditationGame">
-    <h2>Игра: Кратка медитация</h2>
-    <p>Затвори очи и се съсредоточи върху усещанията си за 1 минута. Натисни „Старт“ за таймер.</p>
-    <button id="startMeditation">Старт медитация</button>
-    <div id="meditationMsg"></div>
-  </section>
+    <section class="comments-section">
+      <h2>📝 Коментари и подкрепа</h2>
+      <p>Остави съобщение за други, сподели как се чувстваш или вдъхнови някого 💬</p>
+      <textarea placeholder="Напиши нещо..." rows="4"></textarea>
+      <button>Изпрати</button>
+    </section>
 
-</main>
+    <section class="chat-section">
+      <h2>💬 Общ чат</h2>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-message">👋 Здравей! Как си днес?</div>
+      </div>
+      <input type="text" id="chatInput" placeholder="Напиши съобщение...">
+      <button onclick="sendMessage()">Изпрати</button>
+    </section>
 
-<script>
-  // --- Игра 1: Дишай с мен (4-7-8 техника) ---
-  const startBreathBtn = document.getElementById('startBreath');
-  const breathTimer = document.getElementById('breathTimer');
+  </div>
 
-  const phases = [
-    { text: 'Вдишай', duration: 4000 },
-    { text: 'Задръж', duration: 7000 },
-    { text: 'Издишай', duration: 8000 },
-  ];
-
-  let phase = 0;
-  let count = 0;
-  let rounds = 0;
-  let breathInterval = null;
-
-  startBreathBtn.onclick = () => {
-    if (breathInterval) return;
-    phase = 0; count = 0; rounds = 0;
-    breathTimer.textContent = '';
-    startBreathBtn.disabled = true;
-    runPhase();
-    breathInterval = setInterval(runPhase, 1000);
-  };
-
-  function runPhase() {
-    if (count === 0) {
-      breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration / 1000} сек`;
-      count++;
-    } else if (count < phases[phase].duration / 1000) {
-      breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration / 1000 - count} сек`;
-      count++;
-    } else {
-      phase++;
-      count = 0;
-      if (phase === phases.length) {
-        rounds++;
-        if (rounds === 4) {
-          breathTimer.textContent = `Кръгът приключи! Браво! 🎉`;
-          clearInterval(breathInterval);
-          breathInterval = null;
-          startBreathBtn.disabled = false;
-        } else {
-          phase = 0;
-          breathTimer.textContent = `Повтори кръг ${rounds + 1} от 4`;
-          clearInterval(breathInterval);
-          setTimeout(() => {
-            runPhase();
-            breathInterval = setInterval(runPhase, 1000);
-          }, 1500);
-        }
-      } else {
-        breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration / 1000} сек`;
-        count++;
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const box = document.getElementById("chatBox");
+      if(input.value.trim() !== "") {
+        const div = document.createElement("div");
+        div.classList.add("chat-message");
+        div.textContent = "🗣️ " + input.value;
+        box.appendChild(div);
+        input.value = "";
+        box.scrollTop = box.scrollHeight;
       }
     }
-  }
-
-  // --- Игра 2: Визуално упражнение за релакс ---
-  const startPulseBtn = document.getElementById('startPulse');
-  const stopPulseBtn = document.getElementById('stopPulse');
-  const relaxCircle = document.getElementById('relaxCircle');
-
-  startPulseBtn.onclick = () => {
-    relaxCircle.style.animation = 'pulse 4s ease-in-out infinite';
-    startPulseBtn.style.display = 'none';
-    stopPulseBtn.style.display = 'inline-block';
-  };
-  stopPulseBtn.onclick = () => {
-    relaxCircle.style.animation = 'none';
-    stopPulseBtn.style.display = 'none';
-    startPulseBtn.style.display = 'inline-block';
-  };
-
-  // --- Игра 3: Кратка медитация ---
-  const startMeditationBtn = document.getElementById('startMeditation');
-  const meditationMsg = document.getElementById('meditationMsg');
-  let meditationTimeout = null;
-
-  startMeditationBtn.onclick = () => {
-    startMeditationBtn.disabled = true;
-    meditationMsg.textContent = 'Медитацията започна. Затвори очи и се съсредоточи...';
-    meditationTimeout = setTimeout(() => {
-      meditationMsg.textContent = 'Медитацията приключи. Надявам се да се чувстваш по-спокоен(на). 😊';
-      startMeditationBtn.disabled = false;
-    }, 60000); // 1 минута
-  };
-</script>
-
+  </script>
 </body>
 </html>
