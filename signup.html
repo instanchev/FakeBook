@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <title>Регистрация</title>
+</head>
+<body>
+  <h2>Регистрация</h2>
+  <form id="signupForm">
+    <label>Потребителско име:<br>
+      <input type="text" id="username" required>
+    </label><br><br>
+    <label>Парола:<br>
+      <input type="password" id="password" required>
+    </label><br><br>
+    <button type="submit">Регистрирай се</button>
+  </form>
+
+  <p>Имаш профил? <a href="login.html">Вход</a></p>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      let username = document.getElementById('username').value;
+      let password = document.getElementById('password').value;
+
+      // Записваме в localStorage
+      if(localStorage.getItem(username)) {
+        alert('Потребителското име вече съществува!');
+      } else {
+        localStorage.setItem(username, password);
+        alert('Регистрацията е успешна! Влез сега.');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>
