@@ -1,83 +1,367 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>батко ти много те обича</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <style>
-    body { margin: 0; font-family: 'Roboto', sans-serif; background: #f4f7fa; color: #333; }
-    header { background: #2a2f45; padding: 20px; text-align: center; color: #fff; position: relative; }
-    .site-banner { background: #cc3366; color: #fff; text-align: center; padding: 10px; font-size: 1.1em; }
-    nav { display: flex; justify-content: center; background: #37415a; flex-wrap: wrap; }
-    nav a { margin: 5px 15px; padding: 10px 15px; color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px; }
-    nav a:hover { background: #2a2f45; }
-    .section { max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .section h2 { margin-top: 0; color: #2a2f45; }
-    .quiz-question { margin-bottom: 20px; }
-    .quiz-question label { display: block; margin-bottom: 5px; }
-    .quiz-results { margin-top: 20px; padding: 20px; background: #e2f0e9; border-radius: 8px; }
-    footer { text-align: center; padding: 20px; background: #2a2f45; color: #fff; font-size: 0.9em; }
-    textarea, input[type="text"], input[type="radio"] { margin-right: 10px; }
-    button { background: #2a2f45; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #1e2436; }
-  </style>
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-    function submitQuiz() {
-      const answers = document.querySelectorAll('input[name^="q"]');
-      let score = 0;
-      answers.forEach(ans => { if (ans.checked && ans.value === 'yes') score++; });
-      const resultDiv = document.getElementById('quizResults');
-      let msg = '';
-      if (score >= 4) msg = 'Възможни признаци на силна депресия. Препоръчваме да потърсите професионална помощ.';
-      else if (score >= 2) msg = 'Някои признаци на депресивно настроение. Обмислете техники за релаксация.';
-      else msg = 'Ниски признаци на депресия, но следете състоянието си и използвайте ресурси за поддържане.';
-      resultDiv.innerText = msg;
-      resultDiv.style.display = 'block';
-    }
-    window.addEventListener('DOMContentLoaded', () => showSection('home'));
-  </script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Батко ти е с теб - За малката ми сестричка и всички, които имат нужда</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    color: #222;
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    background: #004080;
+    color: white;
+    padding: 1.5em 1em;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  header h1 {
+    margin: 0 0 0.2em 0;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+  header p {
+    margin: 0;
+    font-style: italic;
+    font-size: 1.1em;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    background: #0563afcc;
+    padding: 0.7em 0;
+    gap: 1em;
+    box-shadow: inset 0 -2px 4px #023a5a;
+  }
+  nav button {
+    background: white;
+    border: none;
+    padding: 0.7em 1.2em;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  nav button.active,
+  nav button:hover {
+    background: #022f57;
+    color: white;
+  }
+  main {
+    flex-grow: 1;
+    max-width: 900px;
+    margin: 2em auto 3em auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 2em 2.5em;
+  }
+  h2 {
+    color: #004080;
+    margin-top: 0;
+    font-weight: 900;
+  }
+  section {
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+  label {
+    font-weight: 600;
+  }
+  select {
+    margin-top: 0.3em;
+    margin-bottom: 1.2em;
+    padding: 0.4em;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1.8px solid #ccc;
+    width: 100%;
+    max-width: 400px;
+  }
+  button.submit-btn {
+    background: #0073e6;
+    color: white;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,115,230,0.5);
+    transition: background 0.3s ease;
+  }
+  button.submit-btn:hover {
+    background: #005bb5;
+  }
+  #testResult {
+    margin-top: 1.5em;
+    font-weight: 800;
+    font-size: 1.2em;
+    color: #d9534f;
+  }
+  ul {
+    line-height: 1.6em;
+  }
+  .game-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 0.7em 1.3em;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(40,167,69,0.6);
+    transition: background 0.3s ease;
+  }
+  .game-btn:hover {
+    background: #1e7e34;
+  }
+  #gameArea {
+    margin-top: 1.5em;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center;
+    color: #004080;
+    user-select: none;
+  }
+  footer {
+    text-align: center;
+    padding: 1em 0;
+    font-size: 0.9em;
+    color: #555;
+    border-top: 1px solid #ccc;
+    background: #f0f4f8;
+  }
+  .heart {
+    color: #d9534f;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="site-banner">вени всичко ще се оправи.</div>
-    <h1>батко ти много те обича</h1>
-  </header>
-  <nav>
-    <a href="#" onclick="showSection('home')">Начало</a>
-    <a href="#" onclick="showSection('quiz')">Тест за настроение</a>
-    <a href="#" onclick="showSection('relax')">Релаксация</a>
-    <a href="#" onclick="showSection('coping')">Справяне с умора</a>
-    <a href="#" onclick="showSection('contact')">Контакт</a>
-  </nav>
 
-  <div class="section" id="home">
-    <h2>Добре дошли</h2>
-    <p>Това е място, където можете да оцените своето психично състояние, да научите техники за релаксация и да получите подкрепа и ресурси за поддържане.</p>
-  </div>
+<header>
+  <h1>Батко ти е с теб</h1>
+  <p>За малката ми сестричка и всички, които търсят сила и подкрепа ❤️</p>
+</header>
 
-  <div class="section" id="quiz" style="display:none;">
-    <h2>Тест: Чувствате ли се депресирани?</h2>
-    <div class="quiz-question">
-      <label>1. Чувствате ли се тъжни или празни през по-голямата част от деня?</label>
-      <label><input type="radio" name="q1" value="yes"> Да</label>
-      <label><input type="radio" name="q1" value="no"> Не</label>
-    </div>
-    <div class="quiz-question">
-      <label>2. Имали ли сте загуба на интерес към хобита или дейности?</label>
-      <label><input type="radio" name="q2" value="yes"> Да</label>
-      <label><input type="radio" name="q2" value="no"> Не</label>
-    </div>
-    <div class="quiz-question">
-      <label>3. Затруднява ли ви се да заспите или предпочитате да спите много?</label>
-      <label><input type="radio" name="q3" value="yes"> Да</label>
-      <label><input type="radio" name="q3" value="no"> Не</label>
-    </div>
-    <div class="quiz-question">
-      <label>4. Чувствате ли се уморени и без енергия?</label>
-      <label><input type="radio" name="q4" value="yes"> Да</label>
-      <label><input type=
+<nav>
+  <button id="nav-test" class="active">Тест за депресия</button>
+  <button id="nav-games">Игри за стрес</button>
+  <button id="nav-info">Съвети и информация</button>
+</nav>
+
+<main>
+  <!-- Тест за депресия -->
+  <section id="section-test" class="active">
+    <h2>Тест за депресия</h2>
+    <p>Погрижи се за себе си, отговори честно на въпросите по-долу и разбери как се чувстваш.</p>
+    <form id="depressionTestForm">
+      <label for="q1">1. Чувствал ли си се тъжен, празен или безнадежден през последните 2 седмици?</label>
+      <select id="q1" name="q1" required>
+        <option value="">Избери</option>
+        <option value="0">Не</option>
+        <option value="1">Понякога</option>
+        <option value="2">Често</option>
+        <option value="3">Постоянно</option>
+      </select>
+
+      <label for="q2">2. Загуба на интерес или удоволствие от дейности, които обичайно харесваш?</label>
+      <select id="q2" name="q2" required>
+        <option value="">Избери</option>
+        <option value="0">Не</option>
+        <option value="1">Понякога</option>
+        <option value="2">Често</option>
+        <option value="3">Постоянно</option>
+      </select>
+
+      <label for="q3">3. Имаш ли проблеми със съня (спиш твърде много или твърде малко)?</label>
+      <select id="q3" name="q3" required>
+        <option value="">Избери</option>
+        <option value="0">Не</option>
+        <option value="1">Понякога</option>
+        <option value="2">Често</option>
+        <option value="3">Постоянно</option>
+      </select>
+
+      <label for="q4">4. Чувствал ли си се уморен или с намалена енергия?</label>
+      <select id="q4" name="q4" required>
+        <option value="">Избери</option>
+        <option value="0">Не</option>
+        <option value="1">Понякога</option>
+        <option value="2">Често</option>
+        <option value="3">Постоянно</option>
+      </select>
+
+      <label for="q5">5. Имаш ли трудности с концентрацията или вземането на решения?</label>
+      <select id="q5" name="q5" required>
+        <option value="">Избери</option>
+        <option value="0">Не</option>
+        <option value="1">Понякога</option>
+        <option value="2">Често</option>
+        <option value="3">Постоянно</option>
+      </select>
+
+      <br />
+      <button type="submit" class="submit-btn">Провери резултат</button>
+    </form>
+    <div id="testResult"></div>
+  </section>
+
+  <!-- Игри за стрес -->
+  <section id="section-games">
+    <h2>Игри за справяне със стреса</h2>
+    <p>Когато стресът ти тежи, опитай тези забавни упражнения, които ти помагат да се отпуснеш и да се чувстваш по-добре.</p>
+    <button class="game-btn" id="game-breathing">Дишай с мен (4-7-8 техника)</button>
+    <div id="gameArea"></div>
+  </section>
+
+  <!-- Съвети и информация -->
+  <section id="section-info">
+    <h2>Съвети и информация</h2>
+    <p>Знам, че животът понякога може да е труден. Тук съм, за да ти напомня, че не си сам(а) и има начини да се справиш.</p>
+    <h3>Как да се справиш със стреса?</h3>
+    <ul>
+      <li>Почивай редовно и спи достатъчно.</li>
+      <li>Прави упражнения за дишане и медитация.</li>
+      <li>Говори с близък приятел или член на семейството.</li>
+      <li>Раздели задачите на по-малки и се фокусирай на едно нещо наведнъж.</li>
+      <li>Пий вода и се раздвижвай поне веднъж на час.</li>
+    </ul>
+    <h3>Какво е депресия?</h3>
+    <p>Депресията е състояние, което засяга настроението, мислите и енергията ти. Не си виновен(на), че я изпитваш, и има начини да се подобриш с помощта на специалисти.</p>
+    <h3>Полезни ресурси:</h3>
+    <ul>
+      <li><a href="https://www.who.int/news-room/fact-sheets/detail/depression" target="_blank" rel="noopener">Световната здравна организация - Депресия</a></li>
+      <li><a href="https://mentalhealth.bg/" target="_blank" rel="noopener">MentalHealth.bg - Български ресурс</a></li>
+      <li><a href="https://www.psychologytoday.com/us/basics/depression" target="_blank" rel="noopener">Psychology Today - Депресия</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Батко ти е с теб | Направен с <span class="heart">❤</span> за малката ми сестричка</p>
+</footer>
+
+<script>
+  // Навигация между секциите
+  const navTest = document.getElementById('nav-test');
+  const navGames = document.getElementById('nav-games');
+  const navInfo = document.getElementById('nav-info');
+
+  const sectionTest = document.getElementById('section-test');
+  const sectionGames = document.getElementById('section-games');
+  const sectionInfo = document.getElementById('section-info');
+
+  function setActiveSection(sectionBtn, section) {
+    // махаме всички active
+    [navTest, navGames, navInfo].forEach(btn => btn.classList.remove('active'));
+    [sectionTest, sectionGames, sectionInfo].forEach(sec => sec.classList.remove('active'));
+    // добавяме active на избраните
+    sectionBtn.classList.add('active');
+    section.classList.add('active');
+  }
+
+  navTest.onclick = () => setActiveSection(navTest, sectionTest);
+  navGames.onclick = () => setActiveSection(navGames, sectionGames);
+  navInfo.onclick = () => setActiveSection(navInfo, sectionInfo);
+
+  // Тест за депресия
+  const form = document.getElementById('depressionTestForm');
+  const resultDiv = document.getElementById('testResult');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let totalScore = 0;
+    for(let i=1; i<=5; i++) {
+      const val = parseInt(form['q'+i].value, 10);
+      totalScore += val;
+    }
+
+    let message = '';
+    if(totalScore <= 4) {
+      message = 'Твоето настроение изглежда добро. Продължавай да се грижиш за себе си!';
+    } else if(totalScore <= 8) {
+      message = 'Появяват се признаци на стрес или лека депресия. Опитай да отделиш време за почивка и подкрепа.';
+    } else if(totalScore <= 12) {
+      message = 'Средно ниво на депресия. Може би е добре да поговориш с близък или специалист.';
+    } else {
+      message = 'Високо ниво на депресия. Моля те, потърси помощ от специалист възможно най-скоро.';
+    }
+
+    resultDiv.textContent = message;
+  });
+
+  // Игра - дишай с мен (4-7-8 техника)
+  const gameBtn = document.getElementById('game-breathing');
+  const gameArea = document.getElementById('gameArea');
+
+  gameBtn.onclick = () => {
+    gameArea.innerHTML = `
+      <p>Вдишай през носа за <strong>4 секунди</strong></p>
+      <p>Задръж дъха за <strong>7 секунди</strong></p>
+      <p>Издишай бавно през устата за <strong>8 секунди</strong></p>
+      <p>Повтори 4 пъти.</p>
+      <button id="startBreath" class="game-btn">Старт</button>
+      <div id="breathTimer" style="margin-top: 1em; font-size: 1.2em; color: #004080; font-weight: 700;"></div>
+    `;
+
+    const startBtn = document.getElementById('startBreath');
+    const breathTimer = document.getElementById('breathTimer');
+
+    let phase = 0;
+    let count = 0;
+    let interval;
+
+    const phases = [
+      {text: 'Вдишай', duration: 4000},
+      {text: 'Задръж', duration: 7000},
+      {text: 'Издишай', duration: 8000},
+    ];
+
+    startBtn.onclick = () => {
+      if(interval) return; // няма да стартира два пъти
+      count = 0;
+      phase = 0;
+      breathTimer.textContent = '';
+      runPhase();
+      interval = setInterval(() => {
+        runPhase();
+      }, 1000);
+    };
+
+    function runPhase() {
+      if(count === 0) {
+        breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000} сек`;
+        count++;
+      } else if (count < phases[phase].duration/1000) {
+        breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000 - count} сек`;
+        count++;
+      } else {
+        phase++;
+        count = 0;
+        if(phase === phases.length) {
+          breathTimer.textContent = `Кръг приключи! Повтори още 3 пъти.`;
+          clearInterval(interval);
+          interval = null;
+        } else {
+          breathTimer.textContent = `${phases[phase].text}... ${phases[phase].duration/1000} сек`;
+          count++;
+        }
+      }
+    }
+  };
+
+</script>
+
+</body>
+</html>
