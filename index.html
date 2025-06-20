@@ -1,199 +1,750 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Запознай се с Ямболски бек</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    color: #333;
-  }
-  header {
-    background: #8b0000;
-    color: white;
-    padding: 1rem 2rem;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    background: #550000;
-  }
-  nav button {
-    background: none;
-    border: none;
-    color: white;
-    padding: 1rem 2rem;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s;
-  }
-  nav button:hover,
-  nav button.active {
-    background: #330000;
-  }
-  main {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  .profiles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  .profile {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 200px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s;
-  }
-  .profile:hover {
-    transform: scale(1.05);
-  }
-  .profile img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-bottom: 2px solid #8b0000;
-  }
-  .profile h3 {
-    margin: 0.5rem 0 0 0;
-  }
-  .profile p {
-    font-size: 0.9rem;
-    padding: 0 1rem 1rem;
-    color: #555;
-  }
-  /* Игри +18 */
-  .games {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  .game {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 260px;
-    padding: 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .game:hover {
-    background: #8b0000;
-    color: white;
-  }
-  .game h4 {
-    margin: 0.5rem 0 1rem 0;
-  }
-  footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: #999;
-    margin-top: 3rem;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Запознай се с Ямболски бек</title>
+  <style>
+    /* --- Общи стилове --- */
+    body {
+      margin: 0; padding: 0;
+      background: #121212;
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      user-select: none;
+    }
+    header {
+      background: #b22222;
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(178,34,34,0.6);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background: #2a0f0f;
+      padding: 0.5rem 0;
+      box-shadow: inset 0 -3px 5px rgba(178,34,34,0.7);
+      position: sticky;
+      top: 3.8rem;
+      z-index: 9;
+    }
+    nav button {
+      background: none;
+      border: 2px solid #b22222;
+      padding: 0.5rem 1.2rem;
+      color: #b22222;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    nav button.active,
+    nav button:hover {
+      background: #b22222;
+      color: #121212;
+      box-shadow: 0 0 8px #b22222;
+    }
+    main {
+      padding: 1rem;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+    }
+
+    /* --- Профили Tinder стил --- */
+    #profilesSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      min-height: 420px;
+    }
+    .profileCard {
+      position: absolute;
+      width: 300px;
+      max-width: 90vw;
+      height: 400px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #2a0f0f, #451313);
+      box-shadow:
+        0 4px 15px rgba(178,34,34,0.8),
+        inset 0 0 12px #b22222;
+      overflow: hidden;
+      user-select: none;
+      cursor: grab;
+      transition: box-shadow 0.3s ease;
+    }
+    .profileCard:active {
+      cursor: grabbing;
+      box-shadow:
+        0 8px 30px rgba(178,34,34,1),
+        inset 0 0 18px #ff3c3c;
+    }
+    .profileCard img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      filter: drop-shadow(0 0 5px #b22222);
+    }
+    .profileInfo {
+      padding: 1rem;
+      color: #f8f1f1;
+    }
+    .profileInfo h2 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1.5rem;
+      text-shadow: 0 0 4px #b22222;
+    }
+    .profileInfo p {
+      font-size: 1rem;
+      line-height: 1.3;
+      text-shadow: 0 0 3px #5e0a0a;
+    }
+    #noProfilesMsg {
+      margin-top: 150px;
+      font-size: 1.4rem;
+      color: #b22222aa;
+      user-select: none;
+    }
+
+    /* --- Чат бот --- */
+    #chatSection {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto;
+      background: #2a0f0f;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #b22222cc inset;
+      padding: 1rem;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+    }
+    #chatMessages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 0.5rem;
+      border: 1px solid #b22222;
+      border-radius: 12px;
+      margin-bottom: 0.7rem;
+      background: #1a0a0a;
+      color: #eee;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .message {
+      margin-bottom: 1rem;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .message.user {
+      color: #b22222;
+      align-self: flex-end;
+      background: #3b0b0b;
+      padding: 0.5rem 1rem;
+      border-radius: 20px 20px 0 20px;
+      box-shadow: 0 0 8px #b22222;
+    }
+    .message.bot {
+      color: #eee;
+      background: #5c1b1b;
+      padding: 0.5rem 1rem;
+      border-radius: 20px 20px 20px 0;
+      box-shadow: 0 0 8px #b22222;
+      white-space: pre-wrap;
+    }
+    #chatInputForm {
+      display: flex;
+      gap: 0.5rem;
+    }
+    #chatInput {
+      flex-grow: 1;
+      border-radius: 20px;
+      border: 2px solid #b22222;
+      background: #1a0a0a;
+      color: #eee;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    #chatSendBtn {
+      background: #b22222;
+      border: none;
+      border-radius: 20px;
+      color: #121212;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #chatSendBtn:hover {
+      background: #ff3c3c;
+    }
+
+    /* --- Игри --- */
+    #gamesSection {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+      min-height: 420px;
+      background: #2a0f0f;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #b22222cc inset;
+      color: #eee;
+      user-select: none;
+    }
+    #gamesContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 1rem;
+    }
+    .game-card {
+      background: #3e0d0d;
+      border-radius: 15px;
+      box-shadow: 0 0 12px #b22222cc;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 140px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #f1d3d3;
+    }
+    .game-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #ff3c3c;
+    }
+    #gamePlayArea {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    button.game-btn {
+      background: #b22222;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: #121212;
+      border-radius: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+    button.game-btn:hover {
+      background: #ff3c3c;
+    }
+
+    /* --- Swipe анимация профили --- */
+    @keyframes swipeRight {
+      0% { transform: translateX(0) rotate(0); opacity: 1; }
+      100% { transform: translateX(500px) rotate(30deg); opacity: 0; }
+    }
+    @keyframes swipeLeft {
+      0% { transform: translateX(0) rotate(0); opacity: 1; }
+      100% { transform: translateX(-500px) rotate(-30deg); opacity: 0; }
+    }
+
+  </style>
 </head>
 <body>
 
-<header>Запознай се с Ямболски бек</header>
+<header>ЗАПОЗНАЙ СЕ С ЯМБОЛСКИ БЕК</header>
 
 <nav>
-  <button id="btnProfiles" class="active">Профили</button>
-  <button id="btnGames">Игри +18</button>
+  <button id="btnProfiles" class="active" aria-label="Профили">Профили</button>
+  <button id="btnChatBot" aria-label="Чат Бот">Чат Бот</button>
+  <button id="btnGames" aria-label="Игри +18">Игри +18</button>
 </nav>
 
 <main>
+
   <!-- Профили -->
-  <section id="profilesSection">
-    <div class="profiles">
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Профил 1">
-        <h3>Мая, 22</h3>
-        <p>Обича музика, разходки и хубави книги. Търси сериозна връзка.</p>
-      </div>
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Профил 2">
-        <h3>Иван, 24</h3>
-        <p>Фитнес маниак и готвач. Обича забавления и нови хора.</p>
-      </div>
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Профил 3">
-        <h3>Елица, 19</h3>
-        <p>Студентка по архитектура, мечтае да пътува по света.</p>
-      </div>
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Профил 4">
-        <h3>Георги, 25</h3>
-        <p>Обича игри, екстремни спортове и добър хумор.</p>
-      </div>
-      <div class="profile">
-        <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="Профил 5">
-        <h3>Нели, 23</h3>
-        <p>Любителка на животните и добрата кухня.</p>
-      </div>
-    </div>
+  <section id="profilesSection" aria-label="Профили">
+    <div id="profileCardsContainer" style="position:relative; height:420px;"></div>
+    <div id="noProfilesMsg" style="display:none;">Няма повече профили...</div>
   </section>
 
-  <!-- Игри +18 -->
-  <section id="gamesSection" style="display:none;">
-    <div class="games">
-      <div class="game" onclick="alert('Игра 1 се зарежда...')">
-        <h4>Палави карти</h4>
-        <p>Играйте срещу други онлайн и събирайте точки.</p>
-      </div>
-      <div class="game" onclick="alert('Игра 2 се зарежда...')">
-        <h4>Викторина за възрастни</h4>
-        <p>Провери знанията си с въпроси +18.</p>
-      </div>
-      <div class="game" onclick="alert('Игра 3 се зарежда...')">
-        <h4>Танцови предизвикателства</h4>
-        <p>Създай свой стил и спечели награди.</p>
-      </div>
-      <div class="game" onclick="alert('Игра 4 се зарежда...')">
-        <h4>Рисуване на тела</h4>
-        <p>Развихри въображението си в тази креативна игра.</p>
-      </div>
-    </div>
+  <!-- Чат бот -->
+  <section id="chatSection" aria-label="Чат Бот">
+    <div id="chatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form id="chatInputForm" aria-label="Форма за чат" autocomplete="off">
+      <input id="chatInput" type="text" placeholder="Пиши нещо..." aria-label="Въведи съобщение" required />
+      <button id="chatSendBtn" type="submit" aria-label="Изпрати съобщението">Изпрати</button>
+    </form>
   </section>
+
+  <!-- Игри -->
+  <section id="gamesSection" aria-label="Игри +18">
+    <div id="gamesContainer"></div>
+    <div id="gamePlayArea"></div>
+  </section>
+
 </main>
 
-<footer>
-  &copy; 2025 Запознай се с Ямболски бек
-</footer>
-
 <script>
+  // --- Данни за профили (млади мъже и жени 18-25) ---
+  const profiles = [
+    {
+      name: 'Ивана',
+      age: 23,
+      img: 'https://randomuser.me/api/portraits/women/45.jpg',
+      desc: 'Обичам музика, танци и приключения. Търся истински човек за споделени мигове.'
+    },
+    {
+      name: 'Мирослав',
+      age: 24,
+      img: 'https://randomuser.me/api/portraits/men/36.jpg',
+      desc: 'Обичам спорта и природата. Ако ти харесва да се смееш и да пътуваш, пиши ми!'
+    },
+    {
+      name: 'Симона',
+      age: 20,
+      img: 'https://randomuser.me/api/portraits/women/22.jpg',
+      desc: 'Търся нови приятели и може би повече... Харесвам книги и дълги разговори.'
+    },
+    {
+      name: 'Даниел',
+      age: 25,
+      img: 'https://randomuser.me/api/portraits/men/52.jpg',
+      desc: 'Пътувания и спорт – това ме зарежда. Търся някой, който цени свободата.'
+    },
+    {
+      name: 'Елица',
+      age: 21,
+      img: 'https://randomuser.me/api/portraits/women/33.jpg',
+      desc: 'Обичам изкуство, фотография и хубави разговори с интересни хора.'
+    },
+    {
+      name: 'Никола',
+      age: 22,
+      img: 'https://randomuser.me/api/portraits/men/20.jpg',
+      desc: 'Аз съм забавен и амбициозен. Винаги готов за нови преживявания.'
+    },
+    // Можеш да добавиш още, ако искаш
+  ];
+
+  // --- Създаване на Tinder стил профили с swipe ---
+  const container = document.getElementById('profileCardsContainer');
+  let currentIndex = 0;
+
+  function createProfileCard(profile, zIndex){
+    const card = document.createElement('div');
+    card.className = 'profileCard';
+    card.style.zIndex = zIndex;
+    card.style.top = (zIndex * 8) + 'px';
+    card.style.left = (zIndex * 8) + 'px';
+
+    card.innerHTML = `
+      <img src="${profile.img}" alt="Снимка на ${profile.name}, ${profile.age} години" loading="lazy" />
+      <div class="profileInfo">
+        <h2>${profile.name}, ${profile.age}</h2>
+        <p>${profile.desc}</p>
+      </div>
+    `;
+
+    // Swipe функция
+    let offsetX = 0, offsetY = 0, startX = 0, startY = 0, dragging = false;
+
+    function onPointerDown(e) {
+      dragging = true;
+      startX = e.clientX || e.touches[0].clientX;
+      startY = e.clientY || e.touches[0].clientY;
+      card.style.transition = 'none';
+      e.preventDefault();
+    }
+    function onPointerMove(e) {
+      if (!dragging) return;
+      const x = (e.clientX || e.touches[0].clientX);
+      const y = (e.clientY || e.touches[0].clientY);
+      offsetX = x - startX;
+      offsetY = y - startY;
+      card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${offsetX/10}deg)`;
+    }
+    function onPointerUp() {
+      dragging = false;
+      card.style.transition = 'transform 0.4s ease';
+
+      if (offsetX > 150) {
+        card.style.animation = 'swipeRight 0.5s forwards';
+        nextProfile();
+      } else if (offsetX < -150) {
+        card.style.animation = 'swipeLeft 0.5s forwards';
+        nextProfile();
+      } else {
+        card.style.transform = 'translate(0,0) rotate(0)';
+      }
+      offsetX = 0;
+      offsetY = 0;
+    }
+
+    card.addEventListener('mousedown', onPointerDown);
+    card.addEventListener('touchstart', onPointerDown);
+
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove);
+
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
+
+    return card;
+  }
+
+  function renderProfiles() {
+    container.innerHTML = '';
+    if(currentIndex >= profiles.length){
+      document.getElementById('noProfilesMsg').style.display = 'block';
+      return;
+    }
+    document.getElementById('noProfilesMsg').style.display = 'none';
+
+    // Показваме до 3 карти, една над друга
+    for(let i = 0; i < 3; i++){
+      const idx = currentIndex + i;
+      if(idx >= profiles.length) break;
+      const card = createProfileCard(profiles[idx], 3 - i);
+      container.appendChild(card);
+    }
+  }
+
+  function nextProfile(){
+    currentIndex++;
+    renderProfiles();
+  }
+
+  renderProfiles();
+
+  // --- Чат Бот: разширява входа до 300-400 думи (идентично) ---
+
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInputForm = document.getElementById('chatInputForm');
+  const chatInput = document.getElementById('chatInput');
+
+  // Функция за генериране на разширен текст с близо 350 думи (идентичен по смисъл)
+  function expandText(text) {
+    if(!text.trim()) return '';
+
+    const words = text.trim().split(/\s+/);
+    const targetLength = 350;
+    let expanded = [];
+
+    while(expanded.length < targetLength){
+      // Взимаме случайна дума и правим лека вариация или повтаряме изречения
+      for(let w of words){
+        expanded.push(w);
+        if(expanded.length >= targetLength) break;
+      }
+    }
+
+    // Добавяме малко връзващи думи и съюзи за плавност
+    const fillers = ['и', 'също', 'тъй като', 'освен това', 'например', 'в същото време', 'макар че', 'въпреки това'];
+    for(let i = 20; i < expanded.length; i += 30){
+      expanded.splice(i, 0, fillers[Math.floor(Math.random()*fillers.length)]);
+    }
+
+    // Събираме в текст
+    return expanded.join(' ');
+  }
+
+  chatInputForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const userText = chatInput.value.trim();
+    if(!userText) return;
+    appendMessage(userText, 'user');
+    chatInput.value = '';
+    setTimeout(() => {
+      const botResponse = expandText(userText);
+      appendMessage(botResponse, 'bot');
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 800);
+  });
+
+  function appendMessage(text, sender){
+    const msg = document.createElement('div');
+    msg.className = 'message ' + sender;
+    msg.textContent = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // --- Навигация между секциите ---
   const btnProfiles = document.getElementById('btnProfiles');
+  const btnChatBot = document.getElementById('btnChatBot');
   const btnGames = document.getElementById('btnGames');
   const profilesSection = document.getElementById('profilesSection');
+  const chatSection = document.getElementById('chatSection');
   const gamesSection = document.getElementById('gamesSection');
 
-  btnProfiles.addEventListener('click', () => {
-    profilesSection.style.display = 'block';
-    gamesSection.style.display = 'none';
-    btnProfiles.classList.add('active');
-    btnGames.classList.remove('active');
-  });
-
-  btnGames.addEventListener('click', () => {
+  function showSection(section) {
     profilesSection.style.display = 'none';
-    gamesSection.style.display = 'block';
-    btnGames.classList.add('active');
+    chatSection.style.display = 'none';
+    gamesSection.style.display = 'none';
+
     btnProfiles.classList.remove('active');
-  });
+    btnChatBot.classList.remove('active');
+    btnGames.classList.remove('active');
+
+    if(section === 'profiles'){
+      profilesSection.style.display = 'flex';
+      btnProfiles.classList.add('active');
+    } else if(section === 'chat'){
+      chatSection.style.display = 'flex';
+      btnChatBot.classList.add('active');
+    } else if(section === 'games'){
+      gamesSection.style.display = 'block';
+      btnGames.classList.add('active');
+    }
+  }
+
+  btnProfiles.addEventListener('click', () => showSection('profiles'));
+  btnChatBot.addEventListener('click', () => showSection('chat'));
+  btnGames.addEventListener('click', () => showSection('games'));
+
+  showSection('profiles');
+
+  // --- Игри +18 ---
+  const gamesData = [
+    {
+      name: 'Тик-Так-Тое +18',
+      description: 'Класическа игра "Три поредни" с ограничение за възраст.',
+      id: 'ttt',
+    },
+    {
+      name: 'Въпроси и Отговори +18',
+      description: 'Игра с въпроси за по-зряла аудитория.',
+      id: 'quiz',
+    },
+    {
+      name: 'Мафия +18',
+      description: 'Парти игра с роли и лъжи.',
+      id: 'mafia',
+    }
+  ];
+
+  const gamesContainer = document.getElementById('gamesContainer');
+  const gamePlayArea = document.getElementById('gamePlayArea');
+
+  function renderGames() {
+    gamesContainer.innerHTML = '';
+    gamePlayArea.innerHTML = '';
+
+    gamesData.forEach(game => {
+      const gameCard = document.createElement('div');
+      gameCard.className = 'game-card';
+      gameCard.tabIndex = 0;
+      gameCard.setAttribute('role', 'button');
+      gameCard.setAttribute('aria-pressed', 'false');
+      gameCard.innerHTML = `<strong>${game.name}</strong><br/><small>${game.description}</small>`;
+      gameCard.addEventListener('click', () => startGame(game.id));
+      gameCard.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          startGame(game.id);
+        }
+      });
+      gamesContainer.appendChild(gameCard);
+    });
+  }
+
+  function startGame(id) {
+    if(id === 'ttt') {
+      startTicTacToe();
+    } else if(id === 'quiz') {
+      startQuiz();
+    } else if(id === 'mafia') {
+      startMafia();
+    }
+  }
+
+  // --- Tic Tac Toe +18 ---
+  function startTicTacToe() {
+    gamePlayArea.innerHTML = `
+      <h3>Тик-Так-Тое +18</h3>
+      <div id="tttBoard" style="display:grid;grid-template-columns:repeat(3, 80px);gap:5px;justify-content:center;margin:1rem auto;"></div>
+      <button class="game-btn" id="tttResetBtn">Нова Игра</button>
+      <div id="tttStatus" style="margin-top:1rem;font-weight:700;"></div>
+    `;
+
+    const boardEl = document.getElementById('tttBoard');
+    const statusEl = document.getElementById('tttStatus');
+    const resetBtn = document.getElementById('tttResetBtn');
+
+    let board = Array(9).fill(null);
+    let currentPlayer = 'X';
+    let gameOver = false;
+
+    function renderBoard() {
+      boardEl.innerHTML = '';
+      board.forEach((cell, idx) => {
+        const cellEl = document.createElement('button');
+        cellEl.style.width = '80px';
+        cellEl.style.height = '80px';
+        cellEl.style.fontSize = '2rem';
+        cellEl.style.fontWeight = '700';
+        cellEl.style.borderRadius = '12px';
+        cellEl.style.border = '2px solid #b22222';
+        cellEl.style.background = '#3b0b0b';
+        cellEl.style.color = '#ff5555';
+        cellEl.style.cursor = 'pointer';
+        cellEl.textContent = cell || '';
+        cellEl.disabled = gameOver || cell !== null;
+        cellEl.addEventListener('click', () => {
+          if(gameOver || cell !== null) return;
+          board[idx] = currentPlayer;
+          checkGame();
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+          renderBoard();
+        });
+        boardEl.appendChild(cellEl);
+      });
+    }
+
+    function checkGame() {
+      const lines = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      for(let [a,b,c] of lines){
+        if(board[a] && board[a] === board[b] && board[a] === board[c]){
+          gameOver = true;
+          statusEl.textContent = `Победител: Играч ${board[a]}`;
+          return;
+        }
+      }
+      if(board.every(c => c !== null)){
+        gameOver = true;
+        statusEl.textContent = 'Равенство!';
+      }
+    }
+
+    resetBtn.onclick = () => {
+      board = Array(9).fill(null);
+      currentPlayer = 'X';
+      gameOver = false;
+      statusEl.textContent = '';
+      renderBoard();
+    };
+
+    renderBoard();
+  }
+
+  // --- Въпроси и Отговори +18 ---
+  function startQuiz() {
+    const questions = [
+      {
+        question: 'Кой е любимият ти тип запознанства?',
+        options: ['Онлайн чат', 'Лични срещи', 'Парти', 'Други'],
+        answer: 1
+      },
+      {
+        question: 'Коя черта цениш най-много?',
+        options: ['Хумор', 'Външен вид', 'Интелигентност', 'Емоционалност'],
+        answer: 0
+      },
+      {
+        question: 'Какъв тип музика предпочиташ на среща?',
+        options: ['Поп', 'Рок', 'Хип-хоп', 'Класическа'],
+        answer: 0
+      }
+    ];
+    let currentQ = 0;
+    let score = 0;
+
+    gamePlayArea.innerHTML = `
+      <h3>Въпроси и Отговори +18</h3>
+      <div id="quizContainer"></div>
+      <button class="game-btn" id="quizNextBtn">Следващ въпрос</button>
+      <div id="quizResult" style="margin-top:1rem; font-weight:700;"></div>
+    `;
+
+    const quizContainer = document.getElementById('quizContainer');
+    const quizNextBtn = document.getElementById('quizNextBtn');
+    const quizResult = document.getElementById('quizResult');
+
+    function showQuestion() {
+      quizResult.textContent = '';
+      if(currentQ >= questions.length){
+        quizContainer.innerHTML = `<p>Играта приключи! Твой резултат: ${score} от ${questions.length}.</p>`;
+        quizNextBtn.style.display = 'none';
+        return;
+      }
+      const q = questions[currentQ];
+      quizContainer.innerHTML = `<p><strong>${q.question}</strong></p>`;
+      q.options.forEach((opt,i) => {
+        const optBtn = document.createElement('button');
+        optBtn.className = 'game-btn';
+        optBtn.textContent = opt;
+        optBtn.onclick = () => {
+          if(i === q.answer){
+            score++;
+            quizResult.textContent = 'Правилен отговор!';
+          } else {
+            quizResult.textContent = 'Грешен отговор!';
+          }
+          quizNextBtn.focus();
+        };
+        quizContainer.appendChild(optBtn);
+      });
+    }
+
+    quizNextBtn.onclick = () => {
+      currentQ++;
+      showQuestion();
+    };
+
+    showQuestion();
+  }
+
+  // --- Мафия +18 (много опростена версия) ---
+  function startMafia() {
+    gamePlayArea.innerHTML = `
+      <h3>Мафия +18</h3>
+      <p>Тази игра е много опростена демо версия. Представи си, че имате 4 играча:</p>
+      <ul>
+        <li>Играч 1: Мафия</li>
+        <li>Играч 2: Гражданин</li>
+        <li>Играч 3: Гражданин</li>
+        <li>Играч 4: Шериф</li>
+      </ul>
+      <button class="game-btn" id="mafiaStartNight">Начало на Нощта</button>
+      <div id="mafiaStatus" style="margin-top:1rem; font-weight:700;"></div>
+    `;
+
+    const mafiaStatus = document.getElementById('mafiaStatus');
+    const mafiaStartNight = document.getElementById('mafiaStartNight');
+
+    mafiaStartNight.onclick = () => {
+      mafiaStatus.textContent = 'Нощта започна... Мафията избира жертва (симулирано)...';
+      setTimeout(() => {
+        mafiaStatus.textContent = 'Мафията елиминира Играч 2.';
+        mafiaStartNight.textContent = 'Следващ Ден';
+        mafiaStartNight.onclick = () => {
+          mafiaStatus.textContent = 'Денят настъпи... Гражданите обсъждат... Играта приключва (демо).';
+          mafiaStartNight.style.display = 'none';
+        };
+      }, 2500);
+    };
+  }
+
+  renderGames();
 </script>
 
 </body>
