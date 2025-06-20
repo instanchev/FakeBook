@@ -1,176 +1,116 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ЯМБОЛ - Регистрация и Вход</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #1877f2;
-    }
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-    }
-    button {
-      width: 100%;
-      padding: 0.5rem;
-      background: #1877f2;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #155db2;
-    }
-    .toggle-link {
-      margin-top: 1rem;
-      text-align: center;
-      cursor: pointer;
-      color: #1877f2;
-      text-decoration: underline;
-    }
-    .error {
-      color: red;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .success {
-      color: green;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тайна Запознанства</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #ff5e62, #ff9966); color: #fff; }
+        header { background: rgba(0, 0, 0, 0.3); padding: 20px 0; position: sticky; top: 0; }
+        .container { width: 90%; max-width: 1200px; margin: auto; }
+        nav { display: flex; justify-content: flex-end; gap: 20px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 600; }
+        h1 { font-size: 2.5rem; }
+        .hero { text-align: center; padding: 100px 20px; }
+        .hero h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        .btn { display: inline-block; background: #fff; color: #ff5e62; padding: 10px 25px; border-radius: 50px; font-weight: bold; text-decoration: none; margin-top: 20px; }
+        section { padding: 60px 20px; }
+        form { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); }
+        form input, form select, form textarea { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; }
+        form input[type="submit"] { background: #fff; color: #ff5e62; font-weight: bold; cursor: pointer; }
+        footer { text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.3); }
+        .chat-box { border: 1px solid #fff; padding: 10px; background: rgba(255,255,255,0.1); height: 300px; overflow-y: auto; margin-top: 20px; border-radius: 10px; }
+        .chat-input { display: flex; margin-top: 10px; }
+        .chat-input input { flex: 1; border: none; padding: 10px; border-radius: 5px 0 0 5px; }
+        .chat-input button { padding: 10px 20px; border: none; background: #fff; color: #ff5e62; border-radius: 0 5px 5px 0; cursor: pointer; }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1>Тайна Запознанства</h1>
+            <nav>
+                <a href="#">Начало</a>
+                <a href="#about">За нас</a>
+                <a href="#register">Регистрация</a>
+                <a href="#login">Вход</a>
+            </nav>
+        </div>
+    </header>
 
-  <div class="container" id="auth-container">
+    <section class="hero">
+        <div class="container">
+            <h2>Открий своята тайна връзка</h2>
+            <p>Красив дизайн. Истински хора. Дискретност и чат.</p>
+            <a href="#register" class="btn">Започни сега</a>
+        </div>
+    </section>
 
-    <h2 id="form-title">Регистрация</h2>
+    <section id="about" class="about">
+        <div class="container">
+            <h2>За нас</h2>
+            <p>Тук си на сигурно място за запознанства. Анонимността и уважението са приоритет. Създай профил, качи снимка и започни чат веднага.</p>
+        </div>
+    </section>
 
-    <div id="error-msg" class="error"></div>
-    <div id="success-msg" class="success"></div>
+    <section id="register" class="register">
+        <div class="container">
+            <h2>Регистрация</h2>
+            <form enctype="multipart/form-data">
+                <input type="text" placeholder="Потребителско име" required>
+                <input type="email" placeholder="Имейл" required>
+                <input type="password" placeholder="Парола" required>
+                <select required>
+                    <option value="" disabled selected>Пол</option>
+                    <option value="male">Мъж</option>
+                    <option value="female">Жена</option>
+                </select>
+                <input type="file" accept="image/*" required>
+                <textarea placeholder="Кратко описание за теб..."></textarea>
+                <input type="submit" value="Създай профил">
+            </form>
+        </div>
+    </section>
 
-    <input type="email" id="email" placeholder="Имейл" required />
-    <input type="password" id="password" placeholder="Парола" required />
+    <section id="login" class="login">
+        <div class="container">
+            <h2>Вход</h2>
+            <form>
+                <input type="email" placeholder="Имейл" required>
+                <input type="password" placeholder="Парола" required>
+                <input type="submit" value="Влез">
+            </form>
+        </div>
+    </section>
 
-    <button id="action-button">Регистрация</button>
+    <section class="chat">
+        <div class="container">
+            <h2>Чат с потребител</h2>
+            <div class="chat-box" id="chatBox">
+                <p><strong>Тя:</strong> Здрасти :)</p>
+                <p><strong>Ти:</strong> Здравей, как си?</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Напиши съобщение...">
+                <button>Изпрати</button>
+            </div>
+        </div>
+    </section>
 
-    <div class="toggle-link" id="toggle-form">Вече имаш акаунт? Вход</div>
-
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-  <script>
-    // TODO: Замени с твоя Firebase конфиг
-    const firebaseConfig = {
-      apiKey: "ТВОЯ_API_KEY",
-      authDomain: "ТВОЯ_AUTH_DOMAIN",
-      projectId: "ТВОЯ_PROJECT_ID",
-      storageBucket: "ТВОЯ_STORAGE_BUCKET",
-      messagingSenderId: "ТВОЯ_SENDER_ID",
-      appId: "ТВОЯ_APP_ID"
-    };
-
-    // Инициализация на Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const actionButton = document.getElementById('action-button');
-    const toggleFormLink = document.getElementById('toggle-form');
-    const formTitle = document.getElementById('form-title');
-    const errorMsg = document.getElementById('error-msg');
-    const successMsg = document.getElementById('success-msg');
-
-    let isRegister = true; // флаг дали сме на регистрация или вход
-
-    function clearMessages() {
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
-    }
-
-    actionButton.addEventListener('click', () => {
-      clearMessages();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
-
-      if (!email || !password) {
-        errorMsg.textContent = 'Моля, въведи имейл и парола.';
-        return;
-      }
-
-      if (isRegister) {
-        // Регистрация
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            successMsg.textContent = 'Регистрацията е успешна! Можеш да влезеш.';
-            emailInput.value = '';
-            passwordInput.value = '';
-          })
-          .catch(error => {
-            errorMsg.textContent = error.message;
-          });
-      } else {
-        // Вход
-        auth.signInWithEmailAndPassword(email, password)
-          .then(() => {
-            successMsg.textContent = 'Влязохте успешно!';
-            emailInput.value = '';
-            passwordInput.value = '';
-            // Тук може да добавиш пренасочване към другата част на сайта
-          })
-          .catch(error => {
-            errorMsg.textContent = error.message;
-          });
-      }
-    });
-
-    toggleFormLink.addEventListener('click', () => {
-      clearMessages();
-      isRegister = !isRegister;
-      if (isRegister) {
-        formTitle.textContent = 'Регистрация';
-        actionButton.textContent = 'Регистрация';
-        toggleFormLink.textContent = 'Вече имаш акаунт? Вход';
-      } else {
-        formTitle.textContent = 'Вход';
-        actionButton.textContent = 'Вход';
-        toggleFormLink.textContent = 'Нямаш акаунт? Регистрация';
-      }
-    });
-
-  </script>
-
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Тайна Запознанства. Всички права запазени.</p>
+        </div>
+    </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+	
