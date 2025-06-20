@@ -5,29 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dogbook</title>
 <style>
-  /* Основен стил */
+  /* Основен стил тип Facebook */
   body {
-    margin: 0; font-family: Arial, sans-serif; background: #f0f2f5;
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5; user-select: none;
   }
   header {
-    background: #1877f2; color: white; padding: 10px 20px; display: flex; align-items: center;
+    background: #1877f2; color: white; padding: 10px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: fixed; top: 0; left: 0; right: 0; height: 50px; z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
   #logo {
-    display: flex; align-items: center; cursor: pointer; user-select: none;
+    display: flex; align-items: center; cursor: pointer;
   }
   #logo-box {
     width: 36px; height: 36px; background: white; color: #1877f2;
     font-weight: bold; font-size: 28px; border-radius: 6px;
     display: flex; justify-content: center; align-items: center; margin-right: 10px;
+    user-select: none;
+  }
+  nav {
+    display: flex; align-items: center; gap: 15px;
+  }
+  nav button {
+    background: transparent; border: none; color: white; font-size: 18px; cursor: pointer;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  nav button:hover, nav button.active {
+    background: #145db2;
   }
   main {
-    max-width: 900px; margin: 20px auto; background: white; border-radius: 8px; padding: 20px;
+    max-width: 900px; margin: 70px auto 40px; background: white; border-radius: 8px; padding: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 600px;
   }
   h2 {
     margin-top: 0;
   }
-  /* Списък с профили */
+  /* Профили (списък) */
   #profile-list {
     display: flex; flex-wrap: wrap; gap: 20px;
   }
@@ -56,67 +75,150 @@
   #profile-cover {
     width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;
   }
+  #profile-header {
+    display: flex; align-items: center; padding: 15px 10px;
+  }
   #profile-avatar {
     width: 80px; height: 80px; border-radius: 50%; border: 3px solid #1877f2; object-fit: cover;
-    position: relative; top: -40px; background: white; margin-left: 20px;
+    margin-right: 15px;
+    position: relative;
   }
   #profile-name {
-    margin-top: -30px; margin-left: 120px; font-size: 28px; font-weight: bold;
+    font-size: 24px;
+    font-weight: 700;
   }
-  /* Бутони за реакции */
   #reactions {
-    margin: 20px 0;
+    margin-left: auto;
+    display: flex; align-items: center; gap: 10px;
   }
   .reaction-btn {
-    font-size: 24px; margin-right: 15px; cursor: pointer; background: #eee;
-    border: none; border-radius: 8px; padding: 5px 12px; transition: background 0.3s;
+    cursor: pointer;
+    font-size: 24px;
+    user-select: none;
+    transition: transform 0.2s;
   }
-  .reaction-btn.selected {
-    background: #1877f2; color: white;
+  .reaction-btn:hover {
+    transform: scale(1.3);
+  }
+  .reaction-btn.active {
+    color: #1877f2;
   }
   /* Чат */
-  #chat-container {
-    position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 400px;
-    background: white; border: 1px solid #1877f2; border-radius: 8px; display: none;
-    flex-direction: column; box-shadow: 0 4px 15px rgba(24,119,242,0.6);
+  #chat-window {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 320px; max-height: 400px;
+    background: white; border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2000;
   }
   #chat-header {
-    background: #1877f2; color: white; padding: 10px; font-weight: bold;
+    background: #1877f2;
+    color: white; padding: 10px;
+    font-weight: 700;
     display: flex; justify-content: space-between; align-items: center;
+    cursor: default;
+  }
+  #chat-close {
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 20px;
   }
   #chat-messages {
-    flex-grow: 1; overflow-y: auto; padding: 10px; background: #f0f8ff;
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+    background: #f7f7f7;
   }
-  .chat-msg {
-    max-width: 75%; margin-bottom: 8px; padding: 8px 12px; border-radius: 15px;
+  .chat-message {
+    margin-bottom: 8px;
+    max-width: 80%;
+    padding: 6px 12px;
+    border-radius: 15px;
     clear: both;
   }
-  .chat-msg.user {
-    background: #1877f2; color: white; float: right;
-    border-bottom-right-radius: 0;
+  .chat-message.user {
+    background: #1877f2;
+    color: white;
+    float: right;
+    text-align: right;
   }
-  .chat-msg.bot {
-    background: #eee; color: black; float: left;
-    border-bottom-left-radius: 0;
+  .chat-message.ai {
+    background: #ddd;
+    color: #222;
+    float: left;
+    text-align: left;
   }
   #chat-input-container {
-    display: flex; padding: 10px; border-top: 1px solid #ddd;
+    border-top: 1px solid #ccc;
+    padding: 5px 10px;
   }
   #chat-input {
-    flex-grow: 1; padding: 8px; border-radius: 20px; border: 1px solid #ccc;
+    width: 100%;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
     outline: none;
   }
-  #chat-send {
-    background: #1877f2; color: white; border: none; padding: 8px 16px; margin-left: 10px; border-radius: 20px;
-    cursor: pointer;
+  /* Новини */
+  #news-list {
+    max-height: 450px; overflow-y: auto;
   }
-  /* Назад бутон */
-  #back-btn {
-    margin-bottom: 15px; cursor: pointer; background: #1877f2; color: white;
-    border: none; padding: 8px 12px; border-radius: 6px;
+  .news-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-size: 16px;
   }
-  #back-btn:hover {
-    background: #145db2;
+  /* Известия */
+  #notifications-list {
+    max-height: 450px; overflow-y: auto;
+  }
+  .notification-item {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+  /* Магазин */
+  #shop-list {
+    display: flex; flex-wrap: wrap; gap: 20px;
+  }
+  .shop-item {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+  .shop-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+  .shop-info {
+    padding: 10px;
+  }
+  .shop-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+  }
+  .shop-info p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  .shop-price {
+    font-weight: 700;
+    color: #1877f2;
+  }
+  /* Скрито по начало */
+  #news-page, #notifications-page, #shop-page {
+    display: none;
   }
 </style>
 </head>
@@ -124,191 +226,373 @@
 <header>
   <div id="logo" onclick="goHome()">
     <div id="logo-box">D</div>
-    Dogbook
+    <div style="font-weight: 700; font-size: 22px; user-select:none;">Dogbook</div>
   </div>
+  <nav>
+    <button id="nav-home" class="active" onclick="showPage('home-page')">Начало</button>
+    <button id="nav-news" onclick="showPage('news-page')">Новини</button>
+    <button id="nav-notifications" onclick="showPage('notifications-page')">Известия</button>
+    <button id="nav-shop" onclick="showPage('shop-page')">Магазин</button>
+  </nav>
 </header>
+
 <main>
-  <!-- Начална страница -->
+  <!-- Начало - профили -->
   <section id="home-page">
-    <h2>Профили на кучета и котки</h2>
-    <div id="profile-list">
-      <!-- Профилите ще се заредят с JS -->
-    </div>
+    <h2>Профили</h2>
+    <div id="profile-list"></div>
   </section>
 
   <!-- Профилна страница -->
-  <section id="profile-page">
-    <button id="back-btn" onclick="goHome()">← Назад</button>
-    <img id="profile-cover" src="" alt="Корицa" />
-    <img id="profile-avatar" src="" alt="Аватар" />
-    <div id="profile-name"></div>
-
-    <div id="reactions">
-      <h3>Реагирай на профилната снимка:</h3>
-      <button class="reaction-btn" data-reaction="like" title="Харесвам">👍</button>
-      <button class="reaction-btn" data-reaction="haha" title="Хаха">😂</button>
-      <button class="reaction-btn" data-reaction="angry" title="Ядосан">😠</button>
-      <button class="reaction-btn" data-reaction="love" title="Обичам">❤️</button>
-      <p id="reaction-result" style="margin-top:10px;"></p>
+  <section id="profile-page" style="display:none;">
+    <img id="profile-cover" src="" alt="Корица" />
+    <div id="profile-header">
+      <img id="profile-avatar" src="" alt="Аватар" />
+      <div id="profile-name"></div>
+      <div id="reactions">
+        <span class="reaction-btn" data-reaction="like" title="👍 Палец">&#128077;</span>
+        <span class="reaction-btn" data-reaction="haha" title="😂 Хаха">&#128514;</span>
+        <span class="reaction-btn" data-reaction="angry" title="😠 Ядосан">&#128545;</span>
+      </div>
+      <button style="margin-left: 15px; padding:6px 12px; cursor:pointer; border:none; border-radius:6px; background:#1877f2; color:white; font-weight:700;" onclick="openChat()">Чат</button>
+      <button style="margin-left: 10px; padding:6px 12px; cursor:pointer; border:none; border-radius:6px; background:#e0e0e0; font-weight:700;" onclick="goHome()">Назад</button>
     </div>
+  </section>
 
-    <button id="chat-toggle" style="background:#1877f2; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">Започни чат</button>
+  <!-- Новини -->
+  <section id="news-page">
+    <h2>Новини</h2>
+    <div id="news-list"></div>
+  </section>
+
+  <!-- Известия -->
+  <section id="notifications-page">
+    <h2>Известия</h2>
+    <div id="notifications-list"></div>
+  </section>
+
+  <!-- Магазин -->
+  <section id="shop-page">
+    <h2>Магазин</h2>
+    <div id="shop-list"></div>
   </section>
 </main>
 
 <!-- Чат прозорец -->
-<div id="chat-container">
+<div id="chat-window">
   <div id="chat-header">
     Чат с профила
-    <button id="chat-close" style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">×</button>
+    <span id="chat-close" onclick="closeChat()">×</span>
   </div>
   <div id="chat-messages"></div>
   <div id="chat-input-container">
-    <input type="text" id="chat-input" placeholder="Напиши съобщение..." />
-    <button id="chat-send">Изпрати</button>
+    <input type="text" id="chat-input" placeholder="Пиши съобщение..." onkeydown="if(event.key==='Enter'){sendMessage();}" />
   </div>
 </div>
 
 <script>
+  // Данни за профили
   const profiles = [
     {
       id: 1,
-      type: 'dog',
-      name: 'Рекс',
-      cover: 'https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=800&q=80',
-      avatar: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=100&q=80',
+      name: "Рекс",
+      type: "dog",
+      avatar: "https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg",
+      cover: "https://images.dog.ceo/breeds/retriever-golden/n02099601_5710.jpg",
     },
     {
       id: 2,
-      type: 'cat',
-      name: 'Мърка',
-      cover: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=800&q=80',
-      avatar: 'https://images.unsplash.com/photo-1516900557540-33e6e8d29e9a?auto=format&fit=crop&w=100&q=80',
-    }
+      name: "Мурка",
+      type: "cat",
+      avatar: "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg",
+      cover: "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg",
+    },
+    {
+      id: 3,
+      name: "Шаро",
+      type: "dog",
+      avatar: "https://images.dog.ceo/breeds/husky/n02110185_1469.jpg",
+      cover: "https://images.dog.ceo/breeds/husky/n02110185_1595.jpg",
+    },
+    {
+      id: 4,
+      name: "Кити",
+      type: "cat",
+      avatar: "https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg",
+      cover: "https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg",
+    },
   ];
 
-  const dogReactions = {
-    like: '👍',
-    haha: '😂',
-    angry: '😠',
-    love: '❤️',
+  // Новини с кучешки и котешки забавни фрази
+  const newsPhrases = [
+    "Кучето Рекс направи парти с всички приятели!",
+    "Мурка хъркаше сладко цяла нощ.",
+    "Шаро намери нова играчка - топка.",
+    "Кити се скри под дивана, когато дойде пощальонът.",
+    "Рекс лаеше на котката, но после се сприятелиха.",
+    "Мурка гонише светлината от фенера в стаята.",
+  ];
+
+  // Известия примерни
+  const notifications = [
+    "Потребителят Рекс е гледал профила ти.",
+    "Мурка те следи от дистанция.",
+    "Шаро изпрати лайк на твоята публикация.",
+    "Кити те добави в приятели.",
+  ];
+
+  // Магазин с кучешки и котешки храни
+  const shopItems = [
+    {id:1, name:"Кучешка храна - Premium", price:"25 лв.", img:"https://images.dog.ceo/breeds/retriever-golden/n02099601_4872.jpg"},
+    {id:2, name:"Котешка храна - Deluxe", price:"30 лв.", img:"https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"},
+    {id:3, name:"Кучешка закуска - Кости", price:"10 лв.", img:"https://images.dog.ceo/breeds/dalmatian/cooper2.jpg"},
+    {id:4, name:"Котешка играчка - Мишка", price:"15 лв.", img:"https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg"},
+  ];
+
+  // Състояние на реакциите
+  let currentReactions = {
+    like: false,
+    haha: false,
+    angry: false,
   };
 
-  const profileListEl = document.getElementById('profile-list');
-  const homePageEl = document.getElementById('home-page');
-  const profilePageEl = document.getElementById('profile-page');
-  const profileCoverEl = document.getElementById('profile-cover');
-  const profileAvatarEl = document.getElementById('profile-avatar');
-  const profileNameEl = document.getElementById('profile-name');
-  const reactionButtons = document.querySelectorAll('.reaction-btn');
-  const reactionResultEl = document.getElementById('reaction-result');
-  const chatToggleBtn = document.getElementById('chat-toggle');
-  const chatContainer = document.getElementById('chat-container');
-  const chatCloseBtn = document.getElementById('chat-close');
-  const chatMessagesEl = document.getElementById('chat-messages');
-  const chatInput = document.getElementById('chat-input');
-  const chatSendBtn = document.getElementById('chat-send');
-
-  let currentProfile = null;
-  let selectedReaction = null;
-
-  // Зареждане на профили на началната страница
+  // Зареждане на профили в Начало
   function loadProfiles() {
-    profileListEl.innerHTML = '';
+    const container = document.getElementById("profile-list");
+    container.innerHTML = "";
     profiles.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'profile-card';
+      const card = document.createElement("div");
+      card.className = "profile-card";
+      card.onclick = () => openProfile(p.id);
       card.innerHTML = `
-        <img class="cover-photo" src="${p.cover}" alt="Cover" />
+        <img class="cover-photo" src="${p.cover}" alt="Корица на ${p.name}">
         <div class="profile-info">
-          <img class="avatar" src="${p.avatar}" alt="Avatar" />
-          <strong>${p.name}</strong>
+          <img class="avatar" src="${p.avatar}" alt="Аватар на ${p.name}">
+          <div>${p.name}</div>
         </div>
       `;
-      card.onclick = () => openProfile(p.id);
-      profileListEl.appendChild(card);
+      container.appendChild(card);
     });
   }
 
-  // Отваряне на профилна страница
+  // Покажи страница, скрий другите
+  function showPage(id) {
+    // Скриваме всички основни страници и профилна
+    ['home-page','profile-page','news-page','notifications-page','shop-page'].forEach(pageId => {
+      document.getElementById(pageId).style.display = (pageId === id) ? 'block' : 'none';
+    });
+    // Навигация
+    ['nav-home','nav-news','nav-notifications','nav-shop'].forEach(btnId => {
+      document.getElementById(btnId).classList.remove('active');
+    });
+    // Активиране на бутона
+    switch(id) {
+      case 'home-page': document.getElementById('nav-home').classList.add('active'); break;
+      case 'news-page': document.getElementById('nav-news').classList.add('active'); break;
+      case 'notifications-page': document.getElementById('nav-notifications').classList.add('active'); break;
+      case 'shop-page': document.getElementById('nav-shop').classList.add('active'); break;
+    }
+  }
+
+  // Отвори профилна страница
   function openProfile(id) {
-    currentProfile = profiles.find(p => p.id === id);
-    if (!currentProfile) return;
-    homePageEl.style.display = 'none';
-    profilePageEl.style.display = 'block';
-
-    profileCoverEl.src = currentProfile.cover;
-    profileAvatarEl.src = currentProfile.avatar;
-    profileNameEl.textContent = currentProfile.name;
-
-    // Нулиране реакции
-    selectedReaction = null;
-    reactionResultEl.textContent = '';
-    reactionButtons.forEach(btn => btn.classList.remove('selected'));
+    const p = profiles.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById("profile-cover").src = p.cover;
+    document.getElementById("profile-avatar").src = p.avatar;
+    document.getElementById("profile-name").textContent = p.name;
+    // Реакции - нулираме
+    currentReactions = {like:false, haha:false, angry:false};
+    updateReactionsUI();
+    showPage('profile-page');
   }
 
-  // Връщане към начална страница
+  // Назад към начална страница
   function goHome() {
-    profilePageEl.style.display = 'none';
-    homePageEl.style.display = 'block';
-    chatContainer.style.display = 'none';
-    chatMessagesEl.innerHTML = '';
+    showPage('home-page');
   }
 
-  // Избор на реакция
-  reactionButtons.forEach(btn => {
+  // Обработка на реакции
+  document.querySelectorAll(".reaction-btn").forEach(btn => {
     btn.addEventListener('click', () => {
-      reactionButtons.forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedReaction = btn.dataset.reaction;
-      reactionResultEl.textContent = `Ти реагира с: ${dogReactions[selectedReaction]}`;
+      const r = btn.dataset.reaction;
+      // Включва/изключва реакцията
+      currentReactions[r] = !currentReactions[r];
+      updateReactionsUI();
     });
   });
 
-  // Чат функционалност
-  function AIResponse(message) {
-    const lower = message.toLowerCase();
-    if (lower.includes('хапя') || lower.includes('зъби')) return 'Гррр! 🐶';
-    if (lower.includes('игра') || lower.includes('топка')) return 'Уау! Хайде да играем! 🐾';
-    if (lower.includes('гладен') || lower.includes('храна')) return 'Ммм, вкусна храна моля! 🍖';
-    return 'Вау, какво ми казваш? 🐕';
+  function updateReactionsUI() {
+    document.querySelectorAll(".reaction-btn").forEach(btn => {
+      const r = btn.dataset.reaction;
+      if (currentReactions[r]) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
   }
 
-  function addChatMessage(text, from) {
-    const msg = document.createElement('div');
-    msg.className = 'chat-msg ' + (from === 'user' ? 'user' : 'bot');
-    msg.textContent = text;
-    chatMessagesEl.appendChild(msg);
-    chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+  // Зареждане на новини
+  function loadNews() {
+    const container = document.getElementById("news-list");
+    container.innerHTML = "";
+    newsPhrases.forEach(phrase => {
+      const div = document.createElement("div");
+      div.className = "news-item";
+      div.textContent = phrase;
+      container.appendChild(div);
+    });
   }
 
-  chatToggleBtn.onclick = () => {
-    if (!currentProfile) return alert('Отвори профил първо!');
-    chatContainer.style.display = 'flex';
-  };
+  // Зареждане на известия
+  function loadNotifications() {
+    const container = document.getElementById("notifications-list");
+    container.innerHTML = "";
+    notifications.forEach(note => {
+      const div = document.createElement("div");
+      div.className = "notification-item";
+      div.textContent = note;
+      container.appendChild(div);
+    });
+  }
 
-  chatCloseBtn.onclick = () => {
-    chatContainer.style.display = 'none';
-    chatMessagesEl.innerHTML = '';
-    chatInput.value = '';
-  };
+  // Зареждане на магазин
+  function loadShop() {
+    const container = document.getElementById("shop-list");
+    container.innerHTML = "";
+    shopItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "shop-item";
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <div class="shop-info">
+          <h3>${item.name}</h3>
+          <p class="shop-price">${item.price}</p>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
 
-  chatSendBtn.onclick = () => {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    addChatMessage(text, 'user');
-    chatInput.value = '';
+  // Чат AI логика
+  const dogAnswers = [
+    "Бау бау! Какво има? 🐾",
+    "Оп, хвърли ми топката! 🎾",
+    "Много съм щастлив да си тук! 🐶",
+    "Ух, това мирише интересно! 👃",
+    "Гав-гав, искам да играем! 🐕",
+    "Обичам да тичам в парка! 🌳",
+  ];
+
+  const catAnswers = [
+    "Мяу... Какво искаш? 😼",
+    "Спирам се да те гледам с пренебрежение. 😹",
+    "Гладна съм, донеси ми храна! 🍣",
+    "Пухкавата ми опашка мърка. 🐱",
+    "Не ме безпокой, спя. 😽",
+    "Обичам да се катеря по шкафовете! 🧗‍♀️",
+  ];
+
+  let currentChatProfile = null;
+
+  function openChat() {
+    if (!currentChatProfile) {
+      alert("Отвори профил, за да започнеш чат.");
+      return;
+    }
+    document.getElementById("chat-window").style.display = "flex";
+    const chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML = `<div class="chat-message ai">Здравей! Аз съм ${currentChatProfile.name}. Питай ме нещо! 🐾</div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  function closeChat() {
+    document.getElementById("chat-window").style.display = "none";
+    document.getElementById("chat-messages").innerHTML = "";
+    document.getElementById("chat-input").value = "";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("chat-input");
+    let msg = input.value.trim();
+    if (msg === "") return;
+    input.value = "";
+
+    // Покажи съобщението на потребителя
+    const chatMessages = document.getElementById("chat-messages");
+    const userMsgDiv = document.createElement("div");
+    userMsgDiv.className = "chat-message user";
+    userMsgDiv.textContent = msg;
+    chatMessages.appendChild(userMsgDiv);
+
+    // Отговор от AI с леко закъснение
     setTimeout(() => {
-      addChatMessage(AIResponse(text), 'bot');
-    }, 800);
-  };
+      const aiMsgDiv = document.createElement("div");
+      aiMsgDiv.className = "chat-message ai";
 
-  chatInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') chatSendBtn.click();
-  });
+      let answer = generateAIAnswer(msg, currentChatProfile.type);
+      aiMsgDiv.textContent = answer;
 
-  // Инициализация
+      chatMessages.appendChild(aiMsgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 700);
+  }
+
+  function generateAIAnswer(message, type) {
+    message = message.toLowerCase();
+
+    // Някои ключови думи и отговори
+    if (type === "dog") {
+      if (message.includes("игра") || message.includes("топка")) {
+        return "Обичам да играя с топката! Бау! 🎾";
+      }
+      if (message.includes("храна") || message.includes("ядеш")) {
+        return "Вкусната кучешка храна е най-добрата! 🦴";
+      }
+      if (message.includes("тихо") || message.includes("спокойно")) {
+        return "Гав-гав... ще пазя тишина. 🐕";
+      }
+      // Случайни отговори
+      return dogAnswers[Math.floor(Math.random() * dogAnswers.length)];
+    }
+    if (type === "cat") {
+      if (message.includes("спи") || message.includes("тихо")) {
+        return "Ще спя, не ме безпокой! Мяу. 😾";
+      }
+      if (message.includes("храна") || message.includes("ядеш")) {
+        return "Обичам риба и вкусни лакомства! 🐟";
+      }
+      if (message.includes("игра") || message.includes("котка")) {
+        return "Обичам да си играя с мишки и лазери! 😼";
+      }
+      // Случайни отговори
+      return catAnswers[Math.floor(Math.random() * catAnswers.length)];
+    }
+    return "Не разбрах, моля питай друго.";
+  }
+
+  // Когато отваряме профил, задаваме и чат профил
+  function openProfile(id) {
+    const p = profiles.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById("profile-cover").src = p.cover;
+    document.getElementById("profile-avatar").src = p.avatar;
+    document.getElementById("profile-name").textContent = p.name;
+    currentChatProfile = p;
+    // Реакции - нулираме
+    currentReactions = {like:false, haha:false, angry:false};
+    updateReactionsUI();
+    showPage('profile-page');
+  }
+
+  // При стартиране
   loadProfiles();
+  loadNews();
+  loadNotifications();
+  loadShop();
+
+  showPage('home-page');
 </script>
+
 </body>
 </html>
