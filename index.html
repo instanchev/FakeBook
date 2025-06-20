@@ -3,595 +3,979 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dogbook</title>
+<title>Любов от Твоето Име - Кучешки Профили, Чат, Новини и Магазин</title>
 <style>
-  /* Основен стил тип Facebook */
+  /* --- Общо --- */
+  * {
+    box-sizing: border-box;
+  }
   body {
-    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5; user-select: none;
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
   header {
-    background: #1877f2; color: white; padding: 10px 20px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: fixed; top: 0; left: 0; right: 0; height: 50px; z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  #logo {
-    display: flex; align-items: center; cursor: pointer;
-  }
-  #logo-box {
-    width: 36px; height: 36px; background: white; color: #1877f2;
-    font-weight: bold; font-size: 28px; border-radius: 6px;
-    display: flex; justify-content: center; align-items: center; margin-right: 10px;
-    user-select: none;
-  }
-  nav {
-    display: flex; align-items: center; gap: 15px;
-  }
-  nav button {
-    background: transparent; border: none; color: white; font-size: 18px; cursor: pointer;
-    position: relative;
-    padding: 5px 10px;
-    border-radius: 6px;
-    transition: background 0.3s;
-  }
-  nav button:hover, nav button.active {
-    background: #145db2;
-  }
-  main {
-    max-width: 900px; margin: 70px auto 40px; background: white; border-radius: 8px; padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 600px;
-  }
-  h2 {
-    margin-top: 0;
-  }
-  /* Профили (списък) */
-  #profile-list {
-    display: flex; flex-wrap: wrap; gap: 20px;
-  }
-  .profile-card {
-    width: 200px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; overflow: hidden;
-    background: white;
-    transition: box-shadow 0.3s;
-  }
-  .profile-card:hover {
-    box-shadow: 0 4px 10px rgba(24,119,242,0.5);
-  }
-  .cover-photo {
-    width: 100%; height: 100px; object-fit: cover;
-  }
-  .profile-info {
-    display: flex; align-items: center; padding: 10px;
-  }
-  .avatar {
-    width: 40px; height: 40px; border-radius: 50%; border: 2px solid #1877f2; object-fit: cover;
-    margin-right: 10px;
-  }
-  /* Профилна страница */
-  #profile-page {
-    display: none;
-  }
-  #profile-cover {
-    width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;
-  }
-  #profile-header {
-    display: flex; align-items: center; padding: 15px 10px;
-  }
-  #profile-avatar {
-    width: 80px; height: 80px; border-radius: 50%; border: 3px solid #1877f2; object-fit: cover;
-    margin-right: 15px;
-    position: relative;
-  }
-  #profile-name {
-    font-size: 24px;
-    font-weight: 700;
-  }
-  #reactions {
-    margin-left: auto;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .reaction-btn {
-    cursor: pointer;
-    font-size: 24px;
-    user-select: none;
-    transition: transform 0.2s;
-  }
-  .reaction-btn:hover {
-    transform: scale(1.3);
-  }
-  .reaction-btn.active {
-    color: #1877f2;
-  }
-  /* Чат */
-  #chat-window {
-    position: fixed;
-    bottom: 20px; right: 20px;
-    width: 320px; max-height: 400px;
-    background: white; border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 2000;
-  }
-  #chat-header {
-    background: #1877f2;
-    color: white; padding: 10px;
-    font-weight: 700;
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: default;
-  }
-  #chat-close {
-    cursor: pointer;
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 20px;
-  }
-  #chat-messages {
-    flex-grow: 1;
-    padding: 10px;
-    overflow-y: auto;
-    font-size: 14px;
-    background: #f7f7f7;
-  }
-  .chat-message {
-    margin-bottom: 8px;
-    max-width: 80%;
-    padding: 6px 12px;
-    border-radius: 15px;
-    clear: both;
-  }
-  .chat-message.user {
-    background: #1877f2;
+    background-color: #3a9970;
     color: white;
-    float: right;
-    text-align: right;
+    padding: 15px 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .chat-message.ai {
-    background: #ddd;
-    color: #222;
-    float: left;
-    text-align: left;
+  header h1 {
+    margin: 0;
   }
-  #chat-input-container {
-    border-top: 1px solid #ccc;
-    padding: 5px 10px;
+  /* Известия бутон */
+  #notifBtn {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
   }
-  #chat-input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    outline: none;
+  #notifBtn[data-count]:not([data-count="0"])::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: red;
+    color: white;
+    font-size: 0.75rem;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-weight: 700;
   }
-  /* Новини */
-  #news-list {
-    max-height: 450px; overflow-y: auto;
-  }
-  .news-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    font-size: 16px;
-  }
-  /* Известия */
-  #notifications-list {
-    max-height: 450px; overflow-y: auto;
-  }
-  .notification-item {
-    border-bottom: 1px solid #ddd;
-    padding: 8px 0;
-    font-size: 15px;
-  }
-  /* Магазин */
-  #shop-list {
-    display: flex; flex-wrap: wrap; gap: 20px;
-  }
-  .shop-item {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
+  /* Падащ лист за известия */
+  #notifDropdown {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    width: 280px;
+    max-height: 320px;
     background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    overflow-y: auto;
+    z-index: 1000;
   }
-  .shop-item img {
-    width: 100%;
-    height: 120px;
+  #notifDropdown.active {
+    display: block;
+  }
+  #notifDropdown h3 {
+    margin: 0;
+    padding: 12px 16px;
+    background: #3a9970;
+    color: white;
+    font-size: 1.1rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    user-select: none;
+  }
+  .notif-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .notif-item:last-child {
+    border-bottom: none;
+  }
+  .notif-item:hover {
+    background: #e0f0e9;
+  }
+  .notif-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     object-fit: cover;
   }
-  .shop-info {
-    padding: 10px;
+  .notif-text {
+    flex-grow: 1;
   }
-  .shop-info h3 {
+
+  /* Контейнер */
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 20px auto 60px;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* --- ПРОФИЛИ --- */
+  #profiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+    gap: 18px;
+  }
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  .profile-card:hover {
+    transform: scale(1.05);
+  }
+  .profile-cover {
+    height: 90px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .profile-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: relative;
+    top: -35px;
+    margin-left: 15px;
+    object-fit: cover;
+    background: white;
+  }
+  .profile-info {
+    padding: 0 15px 15px 15px;
+    margin-top: -25px;
+  }
+  .profile-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0 0 6px 0;
+  }
+  .profile-motto {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn-profile {
+    background: #3a9970;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  .btn-profile:hover {
+    background: #2f7b57;
+  }
+  .btn-like {
+    background: #e74c3c;
+    padding: 6px 10px;
+    font-size: 1rem;
+  }
+  .btn-like.liked {
+    background: #c0392b;
+  }
+
+  /* --- ЧАТ --- */
+  #chat {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  #chat-header {
+    background: #3a9970;
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding: 15px 20px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    user-select: none;
+  }
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #eaf4f1;
+  }
+  .chat-message {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 24px;
+    font-size: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+  .chat-message.user {
+    background: #3a9970;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-message.bot {
+    background: #d1e7d7;
+    color: #275933;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  #chat-input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+  #chat-input {
+    flex: 1;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1rem;
+    border-bottom-left-radius: 14px;
+  }
+  #chat-send-btn {
+    background: #3a9970;
+    border: none;
+    color: white;
+    padding: 0 25px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-bottom-right-radius: 14px;
+    transition: background 0.3s ease;
+  }
+  #chat-send-btn:hover {
+    background: #2f7b57;
+  }
+
+  /* --- НОВИНИ --- */
+  #news {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.12);
+    padding: 15px 20px;
+  }
+  #news h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  .news-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 18px;
+    cursor: pointer;
+  }
+  .news-item:last-child {
+    margin-bottom: 0;
+  }
+  .news-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .news-content {
+    flex-grow: 1;
+  }
+  .news-title {
+    font-weight: 700;
+    font-size: 1rem;
     margin: 0 0 5px 0;
-    font-size: 18px;
   }
-  .shop-info p {
-    margin: 0 0 8px 0;
-    font-size: 14px;
+  .news-desc {
+    font-size: 0.9rem;
     color: #555;
   }
-  .shop-price {
+  .news-author {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  /* --- МАГАЗИН --- */
+  #store {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.12);
+    padding: 15px 20px;
+  }
+  #store h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
     font-weight: 700;
-    color: #1877f2;
   }
-  /* Скрито по начало */
-  #news-page, #notifications-page, #shop-page {
-    display: none;
+  .store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+    gap: 20px;
   }
+  .store-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+  }
+  .store-item img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+  }
+  .store-info {
+    padding: 10px 12px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .store-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0 0 6px 0;
+  }
+  .store-desc {
+    font-size: 0.85rem;
+    color: #666;
+    flex-grow: 1;
+  }
+  .store-price {
+    font-weight: 700;
+    color: #3a9970;
+    margin-top: 8px;
+  }
+
+  /* --- Мобилна оптимизация --- */
+  @media (max-width: 600px) {
+    #profiles {
+      grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+      gap: 12px;
+    }
+    .store-grid {
+      grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+      gap: 15px;
+    }
+  }
+
 </style>
 </head>
 <body>
+
 <header>
-  <div id="logo" onclick="goHome()">
-    <div id="logo-box">D</div>
-    <div style="font-weight: 700; font-size: 22px; user-select:none;">Dogbook</div>
-  </div>
-  <nav>
-    <button id="nav-home" class="active" onclick="showPage('home-page')">Начало</button>
-    <button id="nav-news" onclick="showPage('news-page')">Новини</button>
-    <button id="nav-notifications" onclick="showPage('notifications-page')">Известия</button>
-    <button id="nav-shop" onclick="showPage('shop-page')">Магазин</button>
-  </nav>
+  <h1>Любов от Твоето Име</h1>
+  <button id="notifBtn" data-count="3" title="Известия">🔔</button>
 </header>
 
+<div id="notifDropdown">
+  <h3>Известия</h3>
+  <div class="notif-item">
+    <img src="https://placedog.net/40/40?id=21" alt="Профил" />
+    <div class="notif-text">Профилът на Боби хареса твоя пост.</div>
+  </div>
+  <div class="notif-item">
+    <img src="https://placekitten.com/40/40" alt="Профил" />
+    <div class="notif-text">Котето Мила коментира снимката ти.</div>
+  </div>
+  <div class="notif-item">
+    <img src="https://placedog.net/40/40?id=15" alt="Профил" />
+    <div class="notif-text">Ново съобщение от Рекс.</div>
+  </div>
+</div>
+
 <main>
-  <!-- Начало - профили -->
-  <section id="home-page">
-    <h2>Профили</h2>
-    <div id="profile-list"></div>
+
+  <!-- ПРОФИЛИ -->
+  <section>
+    <h2>Кучешки Профили</h2>
+    <div id="profiles"></div>
   </section>
 
-  <!-- Профилна страница -->
-  <section id="profile-page" style="display:none;">
-    <img id="profile-cover" src="" alt="Корица" />
-    <div id="profile-header">
-      <img id="profile-avatar" src="" alt="Аватар" />
-      <div id="profile-name"></div>
-      <div id="reactions">
-        <span class="reaction-btn" data-reaction="like" title="👍 Палец">&#128077;</span>
-        <span class="reaction-btn" data-reaction="haha" title="😂 Хаха">&#128514;</span>
-        <span class="reaction-btn" data-reaction="angry" title="😠 Ядосан">&#128545;</span>
-      </div>
-      <button style="margin-left: 15px; padding:6px 12px; cursor:pointer; border:none; border-radius:6px; background:#1877f2; color:white; font-weight:700;" onclick="openChat()">Чат</button>
-      <button style="margin-left: 10px; padding:6px 12px; cursor:pointer; border:none; border-radius:6px; background:#e0e0e0; font-weight:700;" onclick="goHome()">Назад</button>
+  <!-- ЧАТ -->
+  <section id="chat">
+    <div id="chat-header">Кучешко-Котешки Чат</div>
+    <div id="chat-messages"></div>
+    <div id="chat-input-container">
+      <input id="chat-input" type="text" placeholder="Пиши тук..." autocomplete="off" />
+      <button id="chat-send-btn" title="Изпрати">➤</button>
     </div>
   </section>
 
-  <!-- Новини -->
-  <section id="news-page">
-    <h2>Новини</h2>
-    <div id="news-list"></div>
+  <!-- НОВИНИ -->
+  <section id="news">
+    <h2>Новини и Инфлуенсъри</h2>
+    <div class="news-item">
+      <img src="https://placedog.net/80/80?id=11" alt="Профил" />
+      <div class="news-content">
+        <div class="news-title">Кучешкият инфлуенсър Боби сподели нов филм</div>
+        <div class="news-desc">Вълнуващ филм за живота на кучетата по света.</div>
+        <div class="news-author">От Боби Песов</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <img src="https://placekitten.com/80/80" alt="Профил" />
+      <div class="news-content">
+        <div class="news-title">Котешкият блогър Мила говори за животните</div>
+        <div class="news-desc">Мила споделя нови гледни точки за грижата и любовта.</div>
+        <div class="news-author">От Мила Котка</div>
+      </div>
+    </div>
+    <div class="news-item">
+      <img src="https://placedog.net/80/80?id=3" alt="Профил" />
+      <div class="news-content">
+        <div class="news-title">Положението в други страни - анализ от Рекс</div>
+        <div class="news-desc">Рекс разглежда актуалните събития от кучешка гледна точка.</div>
+        <div class="news-author">От Рекс Хънд</div>
+      </div>
+    </div>
   </section>
 
-  <!-- Известия -->
-  <section id="notifications-page">
-    <h2>Известия</h2>
-    <div id="notifications-list"></div>
+  <!-- МАГАЗИН -->
+  <section id="store">
+    <h2>Магазин за Кучешки Храни и Аксесоари</h2>
+    <div class="store-grid">
+      <div class="store-item">
+        <img src="https://placedog.net/300/130?id=101" alt="Храна за кучета" />
+        <div class="store-info">
+          <div class="store-name">Суха Храна „Пухче“</div>
+          <div class="store-desc">Баланс на хранителни вещества за всяка възраст.</div>
+          <div class="store-price">22.90 лв.</div>
+        </div>
+      </div>
+      <div class="store-item">
+        <img src="https://placedog.net/300/130?id=102" alt="Играчка за кучета" />
+        <div class="store-info">
+          <div class="store-name">Топка за Гризане</div>
+          <div class="store-desc">Здрав материал, идеална за игри и тренировка.</div>
+          <div class="store-price">15.50 лв.</div>
+        </div>
+      </div>
+      <div class="store-item">
+        <img src="https://placedog.net/300/130?id=103" alt="Нашийник за кучета" />
+        <div class="store-info">
+          <div class="store-name">Нашийник „Стил“</div>
+          <div class="store-desc">Лек и удобен, с регулируема дължина.</div>
+          <div class="store-price">18.20 лв.</div>
+        </div>
+      </div>
+      <div class="store-item">
+        <img src="https://placedog.net/300/130?id=104" alt="Купа за кучета" />
+        <div class="store-info">
+          <div class="store-name">Купа за Храна</div>
+          <div class="store-desc">Стабилна и лесна за почистване, идеална за домашни любимци.</div>
+          <div class="store-price">12.90 лв.</div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Магазин -->
-  <section id="shop-page">
-    <h2>Магазин</h2>
-    <div id="shop-list"></div>
+</main>
+
+<script>
+  // Данни за 20 кучешки профила
+  const profilesData = [
+    { id: 1, name: "Боби", motto: "Винаги верен приятел", cover: "https://placedog.net/200/90?id=1", avatar: "https://placedog.net/70/70?id=1" },
+    { id: 2, name: "Рекс", motto: "Защитник на дома", cover: "https://placedog.net/200/90?id=2", avatar: "https://placedog.net/70/70?id=2" },
+    { id: 3, name: "Джеси", motto: "Весел и любвеобилен", cover: "https://placedog.net/200/90?id=3", avatar: "https://placedog.net/70/70?id=3" },
+    { id: 4, name: "Мими", motto: "Малка, но смела", cover: "https://placedog.net/200/90?id=4", avatar: "https://placedog.net/70/70?id=4" },
+    { id: 5, name: "Тоби", motto: "Енергия и игри", cover: "https://placedog.net/200/90?id=5", avatar: "https://placedog.net/70/70?id=5" },
+    { id: 6, name: "Лео", motto: "Крал на парка", cover: "https://placedog.net/200/90?id=6", avatar: "https://placedog.net/70/70?id=6" },
+    { id: 7, name: "Нина", motto: "Нежност и обич", cover: "https://placedog.net/200/90?id=7", avatar: "https://placedog.net/70/70?id=7" },
+    { id: 8, name: "Макс", motto: "Винаги нащрек", cover: "https://placedog.net/200/90?id=8", avatar: "https://placedog.net/70/70?id=8" },
+    { id: 9, name: "Лили", motto: "Красота и грация", cover: "https://placedog.net/200/90?id=9", avatar: "https://placedog.net/70/70?id=9" },
+    { id: 10, name: "Чарли", motto: "Игри и забавления", cover: "https://placedog.net/200/90?id=10", avatar: "https://placedog.net/70/70?id=10" },
+    { id: 11, name: "Мая", motto: "Обичам разходки", cover: "https://placedog.net/200/90?id=11", avatar: "https://placedog.net/70/70?id=11" },
+    { id: 12, name: "Рокси", motto: "Верна приятелка", cover: "https://placedog.net/200/90?id=12", avatar: "https://placedog.net/70/70?id=12" },
+    { id: 13, name: "Джак", motto: "Палав и любопитен", cover: "https://placedog.net/200/90?id=13", avatar: "https://placedog.net/70/70?id=13" },
+    { id: 14, name: "Саша", motto: "Красив и умен", cover: "https://placedog.net/200/90?id=14", avatar: "https://placedog.net/70/70?id=14" },
+    { id: 15, name: "Габи", motto: "Сърце от злато", cover: "https://placedog.net/200/90?id=15", avatar: "https://placedog.net/70/70?id=15" },
+    { id: 16, name: "Фреди", motto: "Винаги готов за приключения", cover: "https://placedog.net/200/90?id=16", avatar: "https://placedog.net/70/70?id=16" },
+    { id: 17, name: "Кити", motto: "Нежен и спокоен", cover: "https://placedog.net/200/90?id=17", avatar: "https://placedog.net/70/70?id=17" },
+    { id: 18, name: "Зара", motto: "Любознателна и умна", cover: "https://placedog.net/200/90?id=18", avatar: "https://placedog.net/70/70?id=18" },
+    { id: 19, name: "Том", motto: "Винаги любопитен", cover: "https://placedog.net/200/90?id=19", avatar: "https://placedog.net/70/70?id=19" },
+    { id: 20, name: "Снежи", motto: "Обичам сняг и игри", cover: "https://placedog.net/200/90?id=20", avatar: "https://placedog.net/70/70?id=20" },
+  ];
+
+  const profilesContainer = document.getElementById('profiles');
+
+  profilesData.forEach(profile => {
+    const card = document.createElement('div');
+    card.classList.add('profile-card');
+    card.innerHTML = `
+      <img class="profile-cover" src="${profile.cover}" alt="Корица на ${profile.name}" />
+      <img class="profile-avatar" src="${profile.avatar}" alt="Профилна снимка на ${profile.name}" />
+      <div class="profile-info">
+        <h3 class="profile-name">${profile.name}</h3>
+        <p class="profile-motto">${profile.motto}</p>
+        <div class="profile-actions">
+          <button class="btn-like" title="Харесай">❤</button>
+          <button class="btn-profile">Профил</button>
+        </div>
+      </div>
+    `;
+    profilesContainer.appendChild(card);
+
+    const likeBtn = card.querySelector('.btn-like');
+    likeBtn.addEventListener('click', () => {
+      likeBtn.classList.toggle('liked');
+      likeBtn.textContent = likeBtn.classList.contains('liked') ? '❤️' : '❤';
+    });
+    const profileBtn = card.querySelector('.btn-profile');
+    profileBtn.addEventListener('click', () => {
+      alert(`Отваряне на профила на ${profile.name}`);
+    });
+  });
+
+  // Известия
+  const notifBtn = document.getElementById('notifBtn');
+  const notifDropdown = document.getElementById('notifDropdown');
+  notifBtn.addEventListener('click', () => {
+    notifDropdown.classList.toggle('show');
+  });
+
+  // Затваряне на известия при клик извън тях
+  window.onclick = function(event) {
+    if (!event.target.matches('#notifBtn')) {
+      if (notifDropdown.classList.contains('show')) {
+        notifDropdown.classList.remove('show');
+      }
+    }
+  };
+
+  // Чат функционалност (пример)
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatMessages = document.getElementById('chatMessages');
+
+  function generateChatResponse(message) {
+    message = message.toLowerCase();
+    if (message.includes('куче')) {
+      return 'Хвърлям топката! 🐶';
+    } else if (message.includes('котка')) {
+      return 'Мър-мър... 😺';
+    } else if (message.includes('игра')) {
+      return 'Да играем заедно! 🎾';
+    } else {
+      return 'Не съм сигурен какво имаш предвид, но съм тук да помогна! 🐾';
+    }
+  }
+
+  chatSend.addEventListener('click', () => {
+    const msg = chatInput.value.trim();
+    if (msg) {
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('chat-message', 'user');
+      userMsg.textContent = msg;
+      chatMessages.appendChild(userMsg);
+
+      const botReply = generateChatResponse(msg);
+      const botMsg = document.createElement('div');
+      botMsg.classList.add('chat-message', 'bot');
+      botMsg.textContent = botReply;
+      chatMessages.appendChild(botMsg);
+
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+</script>
+
+</body>
+</html>Ето примерен изходен код за страница, която показва 20 профила на кучета с картички, разделени в секция „Профили“, плюс секция с новини, магазин и чат функционалност, както и известия. Използва се JavaScript за динамично зареждане на профилите, бутон за харесване, бутон за показване на профил и базов чат бот.
+
+```html
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Кучешки Профили</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
+    header, main, section { padding: 20px; }
+    h1, h2 { color: #333; }
+    #profiles { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 20px; 
+    }
+    .profile-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+    }
+    .profile-cover {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid white;
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+    }
+    .profile-info {
+      padding: 50px 10px 20px 10px;
+    }
+    .profile-name {
+      margin: 10px 0 5px;
+      font-size: 1.2em;
+      color: #222;
+    }
+    .profile-motto {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+      min-height: 40px;
+    }
+    .profile-actions button {
+      background: #eee;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 15px;
+      margin: 0 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    .profile-actions button:hover {
+      background: #ddd;
+    }
+    .btn-like.liked {
+      color: red;
+      font-weight: bold;
+    }
+
+    /* Notification dropdown */
+    #notifBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      z-index: 1000;
+    }
+    #notifDropdown {
+      display: none;
+      position: fixed;
+      top: 55px;
+      right: 20px;
+      width: 250px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      border-radius: 5px;
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    #notifDropdown.show {
+      display: block;
+    }
+
+    /* Chat */
+    #chat {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      max-height: 400px;
+    }
+    #chatMessages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      font-size: 0.9em;
+      background: #fafafa;
+    }
+    .chat-message {
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 15px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .chat-message.user {
+      background: #007bff;
+      color: white;
+      align-self: flex-end;
+    }
+    .chat-message.bot {
+      background: #e1e1e1;
+      color: #333;
+      align-self: flex-start;
+    }
+    #chatInputContainer {
+      display: flex;
+      padding: 10px;
+      gap: 8px;
+    }
+    #chatInput {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    #chatSend {
+      padding: 8px 15px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Кучешки Профили</h1>
+  <button id="notifBtn">Известия ▼</button>
+  <div id="notifDropdown">
+    <p>Добре дошли! Нямате нови известия.</p>
+  </div>
+</header>
+
+<main>
+  <section id="profiles">
+    <!-- Профилите ще се добавят динамично тук -->
   </section>
 </main>
 
-<!-- Чат прозорец -->
-<div id="chat-window">
-  <div id="chat-header">
-    Чат с профила
-    <span id="chat-close" onclick="closeChat()">×</span>
+<section id="news" style="padding:20px; background:#fff; margin:20px;">
+  <h2>Новини от Кучешкия Свят</h2>
+  <div>
+    <article>
+      <h3>Нов документален филм за живота на кучетата по света</h3>
+      <p>От Боби Песов</p>
+    </article>
+    <article>
+      <h3>Котешкият блогър Мила говори за животните</h3>
+      <p>От Мила Котка</p>
+    </article>
+    <article>
+      <h3>Положението в други страни - анализ от Рекс</h3>
+      <p>От Рекс Хънд</p>
+    </article>
   </div>
-  <div id="chat-messages"></div>
-  <div id="chat-input-container">
-    <input type="text" id="chat-input" placeholder="Пиши съобщение..." onkeydown="if(event.key==='Enter'){sendMessage();}" />
+</section>
+
+<section id="store" style="padding:20px; background:#fff; margin:20px;">
+  <h2>Магазин за Кучешки Храни и Аксесоари</h2>
+  <div style="display:flex; gap: 15px; flex-wrap: wrap;">
+    <div style="background:#eee; padding:10px; border-radius:8px; width: 200px; text-align:center;">
+      <img src="https://placedog.net/300/130?id=101" alt="Храна за кучета" style="width:100%; border-radius:5px;" />
+      <h4>Суха Храна „Пухче“</h4>
+      <p>Баланс на хранителни вещества за всяка възраст.</p>
+      <b>22.90 лв.</b>
+    </div>
+    <div style="background:#eee; padding:10px; border-radius:8px; width: 200px; text-align:center;">
+      <img src="https://placedog.net/300/130?id=102" alt="Играчка за кучета" style="width:100%; border-radius:5px;" />
+      <h4>Топка за Гризане</h4>
+      <p>Здрав материал, идеална за игри и тренировка.</p>
+      <b>15.50 лв.</b>
+    </div>
+    <div style="background:#eee; padding:10px; border-radius:8px; width: 200px; text-align:center;">
+      <img src="https://placedog.net/300/130?id=103" alt="Нашийник за кучета" style="width:100%; border-radius:5px;" />
+      <h4>Нашийник „Стил“</h4>
+      <p>Лек и удобен, с регулируема дължина.</p>
+      <b>18.20 лв.</b>
+    </div>
+    <div style="background:#eee; padding:10px; border-radius:8px; width: 200px; text-align:center;">
+      <img src="https://placedog.net/300/130?id=104" alt="Купа за кучета" style="width:100%; border-radius:5px;" />
+      <h4>Купа за Храна</h4>
+      <p>Стабилна и лесна за почистване, идеална за домашни любимци.</p>
+      <b>12.90 лв.</b>
+    </div>
+  </div>
+</section>
+
+<!-- Чат -->
+<div id="chat">
+  <div id="chatMessages"></div>
+  <div id="chatInputContainer">
+    <input type="text" id="chatInput" placeholder="Пиши нещо..." />
+    <button id="chatSend">Изпрати</button>
   </div>
 </div>
 
 <script>
-  // Данни за профили
-  const profiles = [
-    {
-      id: 1,
-      name: "Рекс",
-      type: "dog",
-      avatar: "https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg",
-      cover: "https://images.dog.ceo/breeds/retriever-golden/n02099601_5710.jpg",
-    },
-    {
-      id: 2,
-      name: "Мурка",
-      type: "cat",
-      avatar: "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg",
-      cover: "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg",
-    },
-    {
-      id: 3,
-      name: "Шаро",
-      type: "dog",
-      avatar: "https://images.dog.ceo/breeds/husky/n02110185_1469.jpg",
-      cover: "https://images.dog.ceo/breeds/husky/n02110185_1595.jpg",
-    },
-    {
-      id: 4,
-      name: "Кити",
-      type: "cat",
-      avatar: "https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg",
-      cover: "https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg",
-    },
+  const profilesData = [
+    { id: 1, name: "Боби", motto: "Винаги верен приятел", cover: "https://placedog.net/200/90?id=1", avatar: "https://placedog.net/70/70?id=1" },
+    { id: 2, name: "Рекс", motto: "Защитник на дома", cover: "https://placedog.net/200/90?id=2", avatar: "https://placedog.net/70/70?id=2" },
+    { id: 3, name: "Джеси", motto: "Весел и любвеобилен", cover: "https://placedog.net/200/90?id=3", avatar: "https://placedog.net/70/70?id=3" },
+    { id: 4, name: "Мими", motto: "Малка, но смела", cover: "https://placedog.net/200/90?id=4", avatar: "https://placedog.net/70/70?id=4" },
+    { id: 5, name: "Тоби", motto: "Енергия и игри", cover: "https://placedog.net/200/90?id=5", avatar: "https://placedog.net/70/70?id=5" },
+    { id: 6, name: "Лео", motto: "Крал на парка", cover: "https://placedog.net/200/90?id=6", avatar: "https://placedog.net/70/70?id=6" },
+    { id: 7, name: "Нина", motto: "Нежност и обич", cover: "https://placedog.net/200/90?id=7", avatar: "https://placedog.net/70/70?id=7" },
+    { id: 8, name: "Макс", motto: "Винаги нащрек", cover: "https://placedog.net/200/90?id=8", avatar: "https://placedog.net/70/70?id=8" },
+    { id: 9, name: "Лили", motto: "Красота и грация", cover: "https://placedog.net/200/90?id=9", avatar: "https://placedog.net/70/70?id=9" },
+    { id: 10, name: "Чарли", motto: "Игри и забавления", cover: "https://placedog.net/200/90?id=10", avatar: "https://placedog.net/70/70?id=10" },
+    { id: 11, name: "Мая", motto: "Обичам разходки", cover: "https://placedog.net/200/90?id=11", avatar: "https://placedog.net/70/70?id=11" },
+    { id: 12, name: "Рокси", motto: "Верна приятелка", cover: "https://placedog.net/200/90?id=12", avatar: "https://placedog.net/70/70?id=12" },
+    { id: 13, name: "Джак", motto: "Палав и любопитен", cover: "https://placedog.net/200/90?id=13", avatar: "https://placedog.net/70/70?id=13" },
+    { id: 14, name: "Саша", motto: "Красив и умен", cover: "https://placedog.net/200/90?id=14", avatar: "https://placedog.net/70/70?id=14" },
+    { id: 15, name: "Габи", motto: "Сърце от злато", cover: "https://placedog.net/200/90?id=15", avatar: "https://placedog.net/70/70?id=15" },
+    { id: 16, name: "Фреди", motto: "Винаги готов за приключения", cover: "https://placedog.net/200/90?id=16", avatar: "https://placedog.net/70/70?id=16" },
+    { id: 17, name: "Кити", motto: "Нежен и спокоен", cover: "https://placedog.net/200/90?id=17", avatar: "https://placedog.net/70/70?id=17" },
+    { id: 18, name: "Оскар", motto: "Смел и силен", cover: "https://placedog.net/200/90?id=18", avatar: "https://placedog.net/70/70?id=18" },
+    { id: 19, name: "Нола", motto: "Весела и игрива", cover: "https://placedog.net/200/90?id=19", avatar: "https://placedog.net/70/70?id=19" },
+    { id: 20, name: "Бела", motto: "Красота и интелект", cover: "https://placedog.net/200/90?id=20", avatar: "https://placedog.net/70/70?id=20" }
   ];
 
-  // Новини с кучешки и котешки забавни фрази
-  const newsPhrases = [
-    "Кучето Рекс направи парти с всички приятели!",
-    "Мурка хъркаше сладко цяла нощ.",
-    "Шаро намери нова играчка - топка.",
-    "Кити се скри под дивана, когато дойде пощальонът.",
-    "Рекс лаеше на котката, но после се сприятелиха.",
-    "Мурка гонише светлината от фенера в стаята.",
-  ];
+  const profilesContainer = document.getElementById('profiles');
 
-  // Известия примерни
-  const notifications = [
-    "Потребителят Рекс е гледал профила ти.",
-    "Мурка те следи от дистанция.",
-    "Шаро изпрати лайк на твоята публикация.",
-    "Кити те добави в приятели.",
-  ];
+  function createProfileCard(profile) {
+    const card = document.createElement('div');
+    card.className = 'profile-card';
 
-  // Магазин с кучешки и котешки храни
-  const shopItems = [
-    {id:1, name:"Кучешка храна - Premium", price:"25 лв.", img:"https://images.dog.ceo/breeds/retriever-golden/n02099601_4872.jpg"},
-    {id:2, name:"Котешка храна - Deluxe", price:"30 лв.", img:"https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"},
-    {id:3, name:"Кучешка закуска - Кости", price:"10 лв.", img:"https://images.dog.ceo/breeds/dalmatian/cooper2.jpg"},
-    {id:4, name:"Котешка играчка - Мишка", price:"15 лв.", img:"https://cdn2.thecatapi.com/images/MTYxNjA2MA.jpg"},
-  ];
-
-  // Състояние на реакциите
-  let currentReactions = {
-    like: false,
-    haha: false,
-    angry: false,
-  };
-
-  // Зареждане на профили в Начало
-  function loadProfiles() {
-    const container = document.getElementById("profile-list");
-    container.innerHTML = "";
-    profiles.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "profile-card";
-      card.onclick = () => openProfile(p.id);
-      card.innerHTML = `
-        <img class="cover-photo" src="${p.cover}" alt="Корица на ${p.name}">
-        <div class="profile-info">
-          <img class="avatar" src="${p.avatar}" alt="Аватар на ${p.name}">
-          <div>${p.name}</div>
+    card.innerHTML = `
+      <img class="profile-cover" src="${profile.cover}" alt="Фон на ${profile.name}" />
+      <img class="profile-avatar" src="${profile.avatar}" alt="Аватар на ${profile.name}" />
+      <div class="profile-info">
+        <div class="profile-name">${profile.name}</div>
+        <div class="profile-motto">${profile.motto}</div>
+        <div class="profile-actions">
+          <button class="btn-like" data-id="${profile.id}">❤ Харесай</button>
+          <button class="btn-show" data-id="${profile.id}">Покажи</button>
         </div>
-      `;
-      container.appendChild(card);
+      </div>
+    `;
+    return card;
+  }
+
+  function loadProfiles() {
+    profilesContainer.innerHTML = '';
+    profilesData.forEach(p => {
+      const card = createProfileCard(p);
+      profilesContainer.appendChild(card);
+    });
+
+    // Добавяме слушатели за бутоните
+    document.querySelectorAll('.btn-like').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const btnEl = e.target;
+        btnEl.classList.toggle('liked');
+        if(btnEl.classList.contains('liked')){
+          btnEl.textContent = '❤ Харесано';
+        } else {
+          btnEl.textContent = '❤ Харесай';
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-show').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const profileId = e.target.dataset.id;
+        const profile = profilesData.find(p => p.id == profileId);
+        alert(`Показва се профил на: ${profile.name}\nМото: ${profile.motto}`);
+      });
     });
   }
 
-  // Покажи страница, скрий другите
-  function showPage(id) {
-    // Скриваме всички основни страници и профилна
-    ['home-page','profile-page','news-page','notifications-page','shop-page'].forEach(pageId => {
-      document.getElementById(pageId).style.display = (pageId === id) ? 'block' : 'none';
-    });
-    // Навигация
-    ['nav-home','nav-news','nav-notifications','nav-shop'].forEach(btnId => {
-      document.getElementById(btnId).classList.remove('active');
-    });
-    // Активиране на бутона
-    switch(id) {
-      case 'home-page': document.getElementById('nav-home').classList.add('active'); break;
-      case 'news-page': document.getElementById('nav-news').classList.add('active'); break;
-      case 'notifications-page': document.getElementById('nav-notifications').classList.add('active'); break;
-      case 'shop-page': document.getElementById('nav-shop').classList.add('active'); break;
-    }
-  }
+  loadProfiles();
 
-  // Отвори профилна страница
-  function openProfile(id) {
-    const p = profiles.find(x => x.id === id);
-    if (!p) return;
-    document.getElementById("profile-cover").src = p.cover;
-    document.getElementById("profile-avatar").src = p.avatar;
-    document.getElementById("profile-name").textContent = p.name;
-    // Реакции - нулираме
-    currentReactions = {like:false, haha:false, angry:false};
-    updateReactionsUI();
-    showPage('profile-page');
-  }
+  // Известия
+  const notifBtn = document.getElementById('notifBtn');
+  const notifDropdown = document.getElementById('notifDropdown');
 
-  // Назад към начална страница
-  function goHome() {
-    showPage('home-page');
-  }
-
-  // Обработка на реакции
-  document.querySelectorAll(".reaction-btn").forEach(btn => {
-    btn.addEventListener('click', () => {
-      const r = btn.dataset.reaction;
-      // Включва/изключва реакцията
-      currentReactions[r] = !currentReactions[r];
-      updateReactionsUI();
-    });
+  notifBtn.addEventListener('click', () => {
+    notifDropdown.classList.toggle('show');
   });
 
-  function updateReactionsUI() {
-    document.querySelectorAll(".reaction-btn").forEach(btn => {
-      const r = btn.dataset.reaction;
-      if (currentReactions[r]) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
+  window.onclick = function(event) {
+    if (!event.target.matches('#notifBtn')) {
+      if (notifDropdown.classList.contains('show')) {
+        notifDropdown.classList.remove('show');
       }
-    });
-  }
-
-  // Зареждане на новини
-  function loadNews() {
-    const container = document.getElementById("news-list");
-    container.innerHTML = "";
-    newsPhrases.forEach(phrase => {
-      const div = document.createElement("div");
-      div.className = "news-item";
-      div.textContent = phrase;
-      container.appendChild(div);
-    });
-  }
-
-  // Зареждане на известия
-  function loadNotifications() {
-    const container = document.getElementById("notifications-list");
-    container.innerHTML = "";
-    notifications.forEach(note => {
-      const div = document.createElement("div");
-      div.className = "notification-item";
-      div.textContent = note;
-      container.appendChild(div);
-    });
-  }
-
-  // Зареждане на магазин
-  function loadShop() {
-    const container = document.getElementById("shop-list");
-    container.innerHTML = "";
-    shopItems.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "shop-item";
-      div.innerHTML = `
-        <img src="${item.img}" alt="${item.name}">
-        <div class="shop-info">
-          <h3>${item.name}</h3>
-          <p class="shop-price">${item.price}</p>
-        </div>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  // Чат AI логика
-  const dogAnswers = [
-    "Бау бау! Какво има? 🐾",
-    "Оп, хвърли ми топката! 🎾",
-    "Много съм щастлив да си тук! 🐶",
-    "Ух, това мирише интересно! 👃",
-    "Гав-гав, искам да играем! 🐕",
-    "Обичам да тичам в парка! 🌳",
-  ];
-
-  const catAnswers = [
-    "Мяу... Какво искаш? 😼",
-    "Спирам се да те гледам с пренебрежение. 😹",
-    "Гладна съм, донеси ми храна! 🍣",
-    "Пухкавата ми опашка мърка. 🐱",
-    "Не ме безпокой, спя. 😽",
-    "Обичам да се катеря по шкафовете! 🧗‍♀️",
-  ];
-
-  let currentChatProfile = null;
-
-  function openChat() {
-    if (!currentChatProfile) {
-      alert("Отвори профил, за да започнеш чат.");
-      return;
     }
-    document.getElementById("chat-window").style.display = "flex";
-    const chatMessages = document.getElementById("chat-messages");
-    chatMessages.innerHTML = `<div class="chat-message ai">Здравей! Аз съм ${currentChatProfile.name}. Питай ме нещо! 🐾</div>`;
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-  function closeChat() {
-    document.getElementById("chat-window").style.display = "none";
-    document.getElementById("chat-messages").innerHTML = "";
-    document.getElementById("chat-input").value = "";
-  }
+  };
 
-  function sendMessage() {
-    const input = document.getElementById("chat-input");
-    let msg = input.value.trim();
-    if (msg === "") return;
-    input.value = "";
+  // Чат бот базов
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  const chatMessages = document.getElementById('chatMessages');
 
-    // Покажи съобщението на потребителя
-    const chatMessages = document.getElementById("chat-messages");
-    const userMsgDiv = document.createElement("div");
-    userMsgDiv.className = "chat-message user";
-    userMsgDiv.textContent = msg;
-    chatMessages.appendChild(userMsgDiv);
-
-    // Отговор от AI с леко закъснение
-    setTimeout(() => {
-      const aiMsgDiv = document.createElement("div");
-      aiMsgDiv.className = "chat-message ai";
-
-      let answer = generateAIAnswer(msg, currentChatProfile.type);
-      aiMsgDiv.textContent = answer;
-
-      chatMessages.appendChild(aiMsgDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 700);
-  }
-
-  function generateAIAnswer(message, type) {
+  function generateChatResponse(message) {
     message = message.toLowerCase();
-
-    // Някои ключови думи и отговори
-    if (type === "dog") {
-      if (message.includes("игра") || message.includes("топка")) {
-        return "Обичам да играя с топката! Бау! 🎾";
-      }
-      if (message.includes("храна") || message.includes("ядеш")) {
-        return "Вкусната кучешка храна е най-добрата! 🦴";
-      }
-      if (message.includes("тихо") || message.includes("спокойно")) {
-        return "Гав-гав... ще пазя тишина. 🐕";
-      }
-      // Случайни отговори
-      return dogAnswers[Math.floor(Math.random() * dogAnswers.length)];
+    if (message.includes('куче')) {
+      return 'Хвърлям топката! 🐶';
+    } else if (message.includes('котка')) {
+      return 'Мър-мър... 😺';
+    } else if (message.includes('игра')) {
+      return 'Да играем заедно! 🎾';
+    } else {
+      return 'Не съм сигурен какво имаш предвид, но съм тук да помогна! 🐾';
     }
-    if (type === "cat") {
-      if (message.includes("спи") || message.includes("тихо")) {
-        return "Ще спя, не ме безпокой! Мяу. 😾";
-      }
-      if (message.includes("храна") || message.includes("ядеш")) {
-        return "Обичам риба и вкусни лакомства! 🐟";
-      }
-      if (message.includes("игра") || message.includes("котка")) {
-        return "Обичам да си играя с мишки и лазери! 😼";
-      }
-      // Случайни отговори
-      return catAnswers[Math.floor(Math.random() * catAnswers.length)];
-    }
-    return "Не разбрах, моля питай друго.";
   }
 
-  // Когато отваряме профил, задаваме и чат профил
-  function openProfile(id) {
-    const p = profiles.find(x => x.id === id);
-    if (!p) return;
-    document.getElementById("profile-cover").src = p.cover;
-    document.getElementById("profile-avatar").src = p.avatar;
-    document.getElementById("profile-name").textContent = p.name;
-    currentChatProfile = p;
-    // Реакции - нулираме
-    currentReactions = {like:false, haha:false, angry:false};
-    updateReactionsUI();
-    showPage('profile-page');
-  }
+  chatSend.addEventListener('click', () => {
+    const msg = chatInput.value.trim();
+    if (msg) {
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('chat-message', 'user');
+      userMsg.textContent = msg;
+      chatMessages.appendChild(userMsg);
 
-  // При стартиране
-  loadProfiles();
-  loadNews();
-  loadNotifications();
-  loadShop();
+      const botReply = generateChatResponse(msg);
+      const botMsg = document.createElement('div');
+      botMsg.classList.add('chat-message', 'bot');
+      botMsg.textContent = botReply;
+      chatMessages.appendChild(botMsg);
 
-  showPage('home-page');
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+
 </script>
 
 </body>
