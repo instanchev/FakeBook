@@ -1,30 +1,148 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Тайна Запознанства</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: linear-gradient(135deg, #ff5e62, #ff9966); color: #fff; }
-        header { background: rgba(0, 0, 0, 0.3); padding: 20px 0; position: sticky; top: 0; }
-        .container { width: 90%; max-width: 1200px; margin: auto; }
-        nav { display: flex; justify-content: flex-end; gap: 20px; }
-        nav a { color: #fff; text-decoration: none; font-weight: 600; }
-        h1 { font-size: 2.5rem; }
-        .hero { text-align: center; padding: 100px 20px; }
-        .hero h2 { font-size: 2.2rem; margin-bottom: 10px; }
-        .btn { display: inline-block; background: #fff; color: #ff5e62; padding: 10px 25px; border-radius: 50px; font-weight: bold; text-decoration: none; margin-top: 20px; }
-        section { padding: 60px 20px; }
-        form { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); }
-        form input, form select, form textarea { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; }
-        form input[type="submit"] { background: #fff; color: #ff5e62; font-weight: bold; cursor: pointer; }
-        footer { text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.3); }
-        .chat-box { border: 1px solid #fff; padding: 10px; background: rgba(255,255,255,0.1); height: 300px; overflow-y: auto; margin-top: 20px; border-radius: 10px; }
-        .chat-input { display: flex; margin-top: 10px; }
-        .chat-input input { flex: 1; border: none; padding: 10px; border-radius: 5px 0 0 5px; }
-        .chat-input button { padding: 10px 20px; border: none; background: #fff; color: #ff5e62; border-radius: 0 5px 5px 0; cursor: pointer; }
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #ff5e62, #ff9966);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #fff6e5;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background: #fff;
+            color: #ff5e62;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #ffd6d9;
+        }
+        section {
+            padding: 60px 20px;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            margin: auto;
+        }
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        form input[type="submit"] {
+            background: #fff;
+            color: #ff5e62;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        form input[type="submit"]:hover {
+            background: #ffd6d9;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            margin-top: auto;
+        }
+        .chat-box {
+            border: 1px solid #fff;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .chat-input {
+            display: flex;
+            margin-top: 10px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .chat-input input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+        }
+        .chat-input button {
+            padding: 10px 20px;
+            border: none;
+            background: #fff;
+            color: #ff5e62;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .chat-input button:hover {
+            background: #ffd6d9;
+        }
     </style>
 </head>
 <body>
@@ -59,17 +177,17 @@
         <div class="container">
             <h2>Регистрация</h2>
             <form enctype="multipart/form-data">
-                <input type="text" placeholder="Потребителско име" required>
-                <input type="email" placeholder="Имейл" required>
-                <input type="password" placeholder="Парола" required>
+                <input type="text" placeholder="Потребителско име" required />
+                <input type="email" placeholder="Имейл" required />
+                <input type="password" placeholder="Парола" required />
                 <select required>
                     <option value="" disabled selected>Пол</option>
                     <option value="male">Мъж</option>
                     <option value="female">Жена</option>
                 </select>
-                <input type="file" accept="image/*" required>
+                <input type="file" accept="image/*" required />
                 <textarea placeholder="Кратко описание за теб..."></textarea>
-                <input type="submit" value="Създай профил">
+                <input type="submit" value="Създай профил" />
             </form>
         </div>
     </section>
@@ -78,9 +196,9 @@
         <div class="container">
             <h2>Вход</h2>
             <form>
-                <input type="email" placeholder="Имейл" required>
-                <input type="password" placeholder="Парола" required>
-                <input type="submit" value="Влез">
+                <input type="email" placeholder="Имейл" required />
+                <input type="password" placeholder="Парола" required />
+                <input type="submit" value="Влез" />
             </form>
         </div>
     </section>
@@ -93,7 +211,7 @@
                 <p><strong>Ти:</strong> Здравей, как си?</p>
             </div>
             <div class="chat-input">
-                <input type="text" placeholder="Напиши съобщение...">
+                <input type="text" placeholder="Напиши съобщение..." />
                 <button>Изпрати</button>
             </div>
         </div>
@@ -106,6 +224,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
