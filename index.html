@@ -1,235 +1,200 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Тайна Запознанства</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #ff5e62, #ff9966);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        header {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-        }
-        nav {
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #fff6e5;
-        }
-        h1 {
-            font-size: 2.5rem;
-        }
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .hero h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        .btn {
-            display: inline-block;
-            background: #fff;
-            color: #ff5e62;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: background 0.3s ease;
-        }
-        .btn:hover {
-            background: #ffd6d9;
-        }
-        section {
-            padding: 60px 20px;
-        }
-        form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            max-width: 400px;
-            margin: auto;
-        }
-        form input, form select, form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-        form input[type="submit"] {
-            background: #fff;
-            color: #ff5e62;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        form input[type="submit"]:hover {
-            background: #ffd6d9;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            margin-top: auto;
-        }
-        .chat-box {
-            border: 1px solid #fff;
-            padding: 10px;
-            background: rgba(255,255,255,0.1);
-            height: 300px;
-            overflow-y: auto;
-            margin-top: 20px;
-            border-radius: 10px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .chat-input {
-            display: flex;
-            margin-top: 10px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .chat-input input {
-            flex: 1;
-            border: none;
-            padding: 10px;
-            border-radius: 5px 0 0 5px;
-        }
-        .chat-input button {
-            padding: 10px 20px;
-            border: none;
-            background: #fff;
-            color: #ff5e62;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .chat-input button:hover {
-            background: #ffd6d9;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Запознай се с Ямболски бек</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    color: #333;
+  }
+  header {
+    background: #8b0000;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    background: #550000;
+  }
+  nav button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+  nav button:hover,
+  nav button.active {
+    background: #330000;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  .profile {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 200px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .profile:hover {
+    transform: scale(1.05);
+  }
+  .profile img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid #8b0000;
+  }
+  .profile h3 {
+    margin: 0.5rem 0 0 0;
+  }
+  .profile p {
+    font-size: 0.9rem;
+    padding: 0 1rem 1rem;
+    color: #555;
+  }
+  /* Игри +18 */
+  .games {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  .game {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 260px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .game:hover {
+    background: #8b0000;
+    color: white;
+  }
+  .game h4 {
+    margin: 0.5rem 0 1rem 0;
+  }
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 3rem;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Тайна Запознанства</h1>
-            <nav>
-                <a href="#">Начало</a>
-                <a href="#about">За нас</a>
-                <a href="#register">Регистрация</a>
-                <a href="#login">Вход</a>
-            </nav>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Открий своята тайна връзка</h2>
-            <p>Красив дизайн. Истински хора. Дискретност и чат.</p>
-            <a href="#register" class="btn">Започни сега</a>
-        </div>
-    </section>
+<header>Запознай се с Ямболски бек</header>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2>За нас</h2>
-            <p>Тук си на сигурно място за запознанства. Анонимността и уважението са приоритет. Създай профил, качи снимка и започни чат веднага.</p>
-        </div>
-    </section>
+<nav>
+  <button id="btnProfiles" class="active">Профили</button>
+  <button id="btnGames">Игри +18</button>
+</nav>
 
-    <section id="register" class="register">
-        <div class="container">
-            <h2>Регистрация</h2>
-            <form enctype="multipart/form-data">
-                <input type="text" placeholder="Потребителско име" required />
-                <input type="email" placeholder="Имейл" required />
-                <input type="password" placeholder="Парола" required />
-                <select required>
-                    <option value="" disabled selected>Пол</option>
-                    <option value="male">Мъж</option>
-                    <option value="female">Жена</option>
-                </select>
-                <input type="file" accept="image/*" required />
-                <textarea placeholder="Кратко описание за теб..."></textarea>
-                <input type="submit" value="Създай профил" />
-            </form>
-        </div>
-    </section>
+<main>
+  <!-- Профили -->
+  <section id="profilesSection">
+    <div class="profiles">
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Профил 1">
+        <h3>Мая, 22</h3>
+        <p>Обича музика, разходки и хубави книги. Търси сериозна връзка.</p>
+      </div>
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Профил 2">
+        <h3>Иван, 24</h3>
+        <p>Фитнес маниак и готвач. Обича забавления и нови хора.</p>
+      </div>
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Профил 3">
+        <h3>Елица, 19</h3>
+        <p>Студентка по архитектура, мечтае да пътува по света.</p>
+      </div>
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="Профил 4">
+        <h3>Георги, 25</h3>
+        <p>Обича игри, екстремни спортове и добър хумор.</p>
+      </div>
+      <div class="profile">
+        <img src="https://randomuser.me/api/portraits/women/21.jpg" alt="Профил 5">
+        <h3>Нели, 23</h3>
+        <p>Любителка на животните и добрата кухня.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="login" class="login">
-        <div class="container">
-            <h2>Вход</h2>
-            <form>
-                <input type="email" placeholder="Имейл" required />
-                <input type="password" placeholder="Парола" required />
-                <input type="submit" value="Влез" />
-            </form>
-        </div>
-    </section>
+  <!-- Игри +18 -->
+  <section id="gamesSection" style="display:none;">
+    <div class="games">
+      <div class="game" onclick="alert('Игра 1 се зарежда...')">
+        <h4>Палави карти</h4>
+        <p>Играйте срещу други онлайн и събирайте точки.</p>
+      </div>
+      <div class="game" onclick="alert('Игра 2 се зарежда...')">
+        <h4>Викторина за възрастни</h4>
+        <p>Провери знанията си с въпроси +18.</p>
+      </div>
+      <div class="game" onclick="alert('Игра 3 се зарежда...')">
+        <h4>Танцови предизвикателства</h4>
+        <p>Създай свой стил и спечели награди.</p>
+      </div>
+      <div class="game" onclick="alert('Игра 4 се зарежда...')">
+        <h4>Рисуване на тела</h4>
+        <p>Развихри въображението си в тази креативна игра.</p>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <section class="chat">
-        <div class="container">
-            <h2>Чат с потребител</h2>
-            <div class="chat-box" id="chatBox">
-                <p><strong>Тя:</strong> Здрасти :)</p>
-                <p><strong>Ти:</strong> Здравей, как си?</p>
-            </div>
-            <div class="chat-input">
-                <input type="text" placeholder="Напиши съобщение..." />
-                <button>Изпрати</button>
-            </div>
-        </div>
-    </section>
+<footer>
+  &copy; 2025 Запознай се с Ямболски бек
+</footer>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Тайна Запознанства. Всички права запазени.</p>
-        </div>
-    </footer>
+<script>
+  const btnProfiles = document.getElementById('btnProfiles');
+  const btnGames = document.getElementById('btnGames');
+  const profilesSection = document.getElementById('profilesSection');
+  const gamesSection = document.getElementById('gamesSection');
+
+  btnProfiles.addEventListener('click', () => {
+    profilesSection.style.display = 'block';
+    gamesSection.style.display = 'none';
+    btnProfiles.classList.add('active');
+    btnGames.classList.remove('active');
+  });
+
+  btnGames.addEventListener('click', () => {
+    profilesSection.style.display = 'none';
+    gamesSection.style.display = 'block';
+    btnGames.classList.add('active');
+    btnProfiles.classList.remove('active');
+  });
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-	
